@@ -66,7 +66,7 @@ export abstract class Responses<T extends { id: string }> {
   }
 
   protected _oneById([id]: string[], body: Params, headers: HttpHeaders): Observable<HttpResponse<Partial<T>>> {
-    const entity: Partial<T> = this.ENTITIES.find((entity: Partial<T>): boolean => entity.id === id);
+    const entity: Partial<T> | undefined = this.ENTITIES.find((entity: Partial<T>): boolean => entity.id === id);
 
     if (entity) {
       return of(

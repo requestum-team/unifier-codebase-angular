@@ -18,7 +18,7 @@ export class UserBase extends BaseModel {
   phone: string;
   @Expose()
   @Transform(transformToModel(ApiFile))
-  avatar: ApiFile;
+  avatar?: ApiFile;
   @Expose({ name: 'emailVerified' })
   isEmailVerified: boolean;
   @Expose()

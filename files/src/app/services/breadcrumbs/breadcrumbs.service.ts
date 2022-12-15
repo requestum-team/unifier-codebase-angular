@@ -22,7 +22,7 @@ export class BreadcrumbsService implements OnDestroy {
   }
 
   constructor(private _router: Router) {
-    this._BC_FOR_DISPLAY$ = new BehaviorSubject([]);
+    this._BC_FOR_DISPLAY$ = new BehaviorSubject([] as IBreadcrumb[]);
     const navigationEnd$: Observable<NavigationEnd> = this._router.events.pipe(filter(isNavigationEnd));
 
     this._router.events
@@ -38,7 +38,7 @@ export class BreadcrumbsService implements OnDestroy {
       .subscribe((bcData: ActivatedRouteSnapshot[]): void => {
         const bcLoadedData: ActivatedRouteSnapshot[] = bcData.filter(({ data }: ActivatedRouteSnapshot): string => data.breadcrumb);
         this._collection = bcLoadedData.reduce((rootAcc: IBreadcrumb[], { data, pathFromRoot }: ActivatedRouteSnapshot): IBreadcrumb[] => {
-          let breadcrumb: IBreadcrumb;
+          let breadcrumb: IBreadcrumb | undefined;
           const dynamicKey: string = data.breadcrumb.startsWith(this._DYNAMIC_BREADCRUMB_PREFIX)
             ? data.breadcrumb.replace(this._DYNAMIC_BREADCRUMB_PREFIX, '')
             : null;

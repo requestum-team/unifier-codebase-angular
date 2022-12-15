@@ -19,11 +19,11 @@ export function typeOf(item: unknown, type: typeOfAvailableType): boolean {
   let isTypeMatched: boolean;
 
   if (type.includes('strict-object')) {
-    isTypeMatched = item && typeof item === 'object' && !Array.isArray(item);
+    isTypeMatched = Boolean(item && typeof item === 'object' && !Array.isArray(item));
   } else if (type.includes('null')) {
     isTypeMatched = !item && typeof item === 'object' && !(item instanceof Object);
   } else if (type.includes('array')) {
-    isTypeMatched = item && Array.isArray(item);
+    isTypeMatched = Boolean(item && Array.isArray(item));
   } else if (type.includes('integer')) {
     isTypeMatched = Number.isInteger(item);
   } else {

@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
   providedIn: 'root'
 })
 export class InitPathService implements OnDestroy {
-  private _path: string;
+  private _path: string | null;
 
   get initialUrl(): string[] {
     const defaultUrl: string[] = [''];

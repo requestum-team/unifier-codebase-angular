@@ -15,12 +15,12 @@ export class HttpServiceError extends HttpErrorResponse {
   }
 
   constructor(e: HttpErrorResponse) {
-    super(e);
+    super(e as any);
   }
 
   private _getSimpleErrorMessage(): IErrorDescription {
     let message: string = `${this.status}: ${this.statusText}`;
-    let key: string;
+    let key: string | undefined;
 
     if (this.error) {
       if (this.error.message) {

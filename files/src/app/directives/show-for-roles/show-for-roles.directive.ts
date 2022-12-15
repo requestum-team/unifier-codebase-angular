@@ -6,7 +6,7 @@ import { AuthService } from '@services/auth/auth.service';
   selector: '[showForRoles]'
 })
 export class ShowForRolesDirective {
-  @Input() set showForRoles(roles: UserRole[]) {
+  @Input() set showForRoles(roles: UserRole[] | undefined) {
     if (!roles?.length || roles.find((role: UserRole) => this.currentRole === role)) {
       this._viewContainer.createEmbeddedView(this._templateRef);
     } else {
@@ -14,7 +14,7 @@ export class ShowForRolesDirective {
     }
   }
 
-  get currentRole(): UserRole {
+  get currentRole(): UserRole | null {
     return this._auth.myRole;
   }
 

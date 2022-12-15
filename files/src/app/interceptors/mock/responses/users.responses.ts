@@ -33,8 +33,8 @@ class UserResponses extends Responses<User> {
   }
 
   protected override _oneById([id]: string[], body: Params, headers: HttpHeaders): Observable<HttpResponse<Partial<User>>> {
-    const token: string = headers.get('Authorization');
-    const role: UserRole = token ? (atob(token.replace('Bearer ', '')) as UserRole) : null;
+    const token: string | null = headers.get('Authorization');
+    const role: UserRole | null = token ? (atob(token.replace('Bearer ', '')) as UserRole) : null;
     if (id && id !== 'me') {
       return super._oneById([id], body, headers);
     } else {
@@ -54,7 +54,7 @@ class UserResponses extends Responses<User> {
       return of(
         new HttpResponse({
           status: 200,
-          body: null
+          body: null as unknown as User
         })
       );
     }

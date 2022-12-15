@@ -1,6 +1,6 @@
 {
   "name": "angular-codebase",
-  "version": "13.0.0",
+  "version": "14.0.0",
   "scripts": {
     "config:encode": "node ./files/bin/config-encode.js",
     "config:decode": "node ./files/bin/config-decode.js",
@@ -58,9 +58,9 @@
     "@types/lodash.isequal": "^4.5.6",
     "@types/lodash.set": "^4.3.7",
     "@types/lodash.transform": "^4.6.7",
-    "@typescript-eslint/eslint-plugin": "5.37.0",
-    "@typescript-eslint/parser": "5.37.0",
-    "eslint": "^8.23.1",
+    "@typescript-eslint/eslint-plugin": "5.46.1",
+    "@typescript-eslint/parser": "5.46.1",
+    "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",

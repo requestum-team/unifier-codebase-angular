@@ -12,8 +12,10 @@ export interface ITokensResponses {
 export const tokensResponses: ITokensResponses = {
   accessToken(routeParams: string[], body: ILoginParams): Observable<HttpResponse<IApiTokens>> {
     const username: string = (body instanceof FormData ? ((body as FormData).getAll('username')[0] as string) : body?.username) ?? '';
-    const refresh: string = (body instanceof FormData ? ((body as FormData).getAll('refresh_token')[0] as string) : body?.token) ?? null;
-    const grantType: string = (body instanceof FormData ? ((body as FormData).getAll('grant_type')[0] as string) : body?.grantType) ?? null;
+    const refresh: string | null =
+      (body instanceof FormData ? ((body as FormData).getAll('refresh_token')[0] as string) : body?.token) ?? null;
+    const grantType: string | null =
+      (body instanceof FormData ? ((body as FormData).getAll('grant_type')[0] as string) : body?.grantType) ?? null;
     const tokenRole: string = username?.split?.('@')?.[0];
     const token: string = refresh ?? btoa(Object.values(UserRole).includes(tokenRole as UserRole) ? tokenRole : '');
     const entity: IApiTokens = {

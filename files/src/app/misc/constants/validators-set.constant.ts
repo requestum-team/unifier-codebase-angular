@@ -10,9 +10,9 @@ export interface IValidatorsSet {
 }
 
 export const VALIDATORS_SET: IValidatorsSet = Object.freeze({
-  EMAIL: Validators.compose([Validators.email, CustomValidators.fullEmail]),
-  PASSWORD: Validators.compose([Validators.minLength(8), Validators.maxLength(30), CustomValidators.password]),
-  PHONE: Validators.compose([CustomValidators.phone]),
-  URL: Validators.compose([CustomValidators.url]),
-  NAME: Validators.compose([Validators.maxLength(90), CustomValidators.validName])
+  EMAIL: Validators.compose([Validators.email, CustomValidators.fullEmail]) as ValidatorFn,
+  PASSWORD: Validators.compose([Validators.minLength(8), Validators.maxLength(30), CustomValidators.password]) as ValidatorFn,
+  PHONE: Validators.compose([CustomValidators.phone]) as ValidatorFn,
+  URL: Validators.compose([CustomValidators.url]) as ValidatorFn,
+  NAME: Validators.compose([Validators.maxLength(90), CustomValidators.validName]) as ValidatorFn
 });
