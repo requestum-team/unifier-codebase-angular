@@ -24,33 +24,35 @@ interface IMockEndpoints {
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
-  endpoints: IMockEndpoints = {
-    GET: {
-      [`${this._config.apiUrl}/api/users`]: { handler: usersResponses.list },
-      [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.oneById }
-    },
-    POST: {
-      [`${this._config.apiUrl}/oauth/token`]: { handler: tokensResponses.accessToken },
-      [`${this._config.apiUrl}/api/users`]: { handler: usersResponses.create }
-    },
-    PATCH: {
-      [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.update }
-    },
-    PUT: {
-      [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.update }
-    },
-    DELETE: {
-      [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.delete }
-    }
-  };
+  endpoints: IMockEndpoints;
 
-  constructor(@Inject(APP_CONFIG) private _config: IAppConfig) {}
+  constructor(@Inject(APP_CONFIG) private _config: IAppConfig) {
+    this.endpoints = {
+      GET: {
+        [`${this._config.apiUrl}/api/users`]: { handler: usersResponses.list },
+        [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.oneById }
+      },
+      POST: {
+        [`${this._config.apiUrl}/oauth/token`]: { handler: tokensResponses.accessToken },
+        [`${this._config.apiUrl}/api/users`]: { handler: usersResponses.create }
+      },
+      PATCH: {
+        [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.update }
+      },
+      PUT: {
+        [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.update }
+      },
+      DELETE: {
+        [`${this._config.apiUrl}/api/users/:id`]: { handler: usersResponses.delete }
+      }
+    };
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const endpoint: { params: string[]; path: string } = this._getEndpoint(request);
-    const currentMockEndpoint: IMockHandler =
+    const endpoint: { params: string[]; path: string } | null = this._getEndpoint(request);
+    const currentMockEndpoint: IMockHandler | undefined =
       this.endpoints?.[request.method as keyof IMockEndpoints]?.[request.url] ??
-      this.endpoints?.[request.method as keyof IMockEndpoints]?.[endpoint?.path];
+      this.endpoints?.[request.method as keyof IMockEndpoints]?.[endpoint?.path as string];
 
     if (currentMockEndpoint) {
       console.warn('Intercepted by API mock service: ', endpoint);
@@ -63,17 +65,17 @@ export class MockInterceptor implements HttpInterceptor {
       mergeMap(
         (): Observable<HttpEvent<any>> =>
           currentMockEndpoint
-            ? currentMockEndpoint.handler(endpoint.params, request.body ?? request.params, request.headers)
+            ? currentMockEndpoint.handler(endpoint?.params, request.body ?? request.params, request.headers)
             : next.handle(request)
       )
     );
   }
 
-  private _getEndpoint(request: HttpRequest<any>): { params: string[]; path: string } {
-    let res: { params: string[]; path: string };
+  private _getEndpoint(request: HttpRequest<any>): { params: string[]; path: string } | null {
+    let res: { params: string[] | null; path: string } | null = null;
 
     Object.keys(this.endpoints?.[request.method as keyof IMockEndpoints] ?? {}).forEach((path: string): void => {
-      const params: string[] = this._findDiff(path, request.url);
+      const params: string[] | null = this._findDiff(path, request.url);
       let updatedPath: string = path;
 
       if (path === request.url) {

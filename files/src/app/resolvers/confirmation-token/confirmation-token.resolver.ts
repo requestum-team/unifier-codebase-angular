@@ -18,7 +18,7 @@ export class ConfirmationTokenResolver implements Resolve<Observable<string> | v
       switchMap(
         (): Observable<string> =>
           this._userApi
-            .confirmAccount(queryParamMap.get('token'))
+            .confirmAccount(queryParamMap.get('token') as string)
             .pipe(catchError(({ error }: HttpErrorResponse): Observable<string> => of(error.message)))
       )
     );

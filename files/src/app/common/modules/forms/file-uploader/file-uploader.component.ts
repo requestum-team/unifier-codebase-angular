@@ -18,7 +18,7 @@ export class FileUploaderComponent extends BaseFormFieldAbstractComponent implem
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   @Output() fileDragover: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
   @Output() fileDragleave: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
-  @Input() override control: FormControl;
+  @Input() override control: FormControl = new FormControl();
   @Input() fileType: FileType[] = [FileType.any];
   @Input() multiple: boolean = true;
   @Input() maxCountFile: number = 10;

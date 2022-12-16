@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpRequest } from '@angular/common/http';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -19,34 +19,34 @@ import { GrantType } from '@models/enums/grant-type.enum';
   providedIn: 'root'
 })
 export class AuthService {
-  me$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  private readonly _TOKENS$: BehaviorSubject<Token> = new BehaviorSubject<Token>(this._storage.get<Token>(StorageKey.tokens));
-  private readonly _ROLE$: BehaviorSubject<UserRole> = new BehaviorSubject<UserRole>(this._storage.get<UserRole>(StorageKey.role));
+  me$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private _http: HttpService = inject(HttpService);
+  private _storage: StorageService = inject(StorageService);
+  private _userApi: UserApiService = inject(UserApiService);
+  private readonly _TOKENS$: BehaviorSubject<Token | null> = new BehaviorSubject<Token | null>(this._storage.get<Token>(StorageKey.tokens));
+  private readonly _ROLE$: BehaviorSubject<UserRole | null> = new BehaviorSubject<UserRole | null>(
+    this._storage.get<UserRole>(StorageKey.role)
+  );
 
   get isAuthenticated(): boolean {
     return Boolean(this.myRole && this.token?.access && this.token?.refresh);
   }
 
-  get token(): Token {
+  get token(): Token | null {
     return this._TOKENS$.value;
   }
 
-  get myRole(): UserRole {
+  get myRole(): UserRole | null {
     return this._ROLE$.value;
   }
 
-  get me(): User {
+  get me(): User | null {
     return this.me$.value;
   }
 
-  constructor(
-    @Inject(APP_CONFIG) private _config: IAppConfig,
-    private _http: HttpService,
-    private _storage: StorageService,
-    private _userApi: UserApiService
-  ) {}
+  constructor(@Inject(APP_CONFIG) private _config: IAppConfig) {}
 
-  getTemporaryToken(services?: IServicesConfig): Observable<Token> {
+  getTemporaryToken(services?: IServicesConfig): Observable<Token | undefined> {
     const { apiUrl, client_id: clientId, client_secret: clientSecret }: IAppConfig = this._config;
     const form: FormData = new FormData();
 
@@ -69,8 +69,8 @@ export class AuthService {
     form.append('grant_type', grantType ?? GrantType.password);
     form.append('client_id', clientId);
     form.append('client_secret', clientSecret);
-    form.append('username', username);
-    form.append('password', password);
+    form.append('username', username as string);
+    form.append('password', password as string);
 
     return this._http
       .post(`${apiUrl}/oauth/token`, form, {}, services)
@@ -84,7 +84,7 @@ export class AuthService {
     form.append('grant_type', GrantType.refreshToken);
     form.append('client_id', clientId);
     form.append('client_secret', clientSecret);
-    form.append('refresh_token', this.token.refresh);
+    form.append('refresh_token', (this.token as Token).refresh);
 
     return this._http
       .post(`${apiUrl}/oauth/token`, form, {}, {})
@@ -128,8 +128,8 @@ export class AuthService {
     );
   }
 
-  private _onTokenResponse(res: IApiTokens): Token {
-    let tokens: Token;
+  private _onTokenResponse(res: IApiTokens): Token | undefined {
+    let tokens: Token | undefined;
 
     if (res.access_token) {
       tokens = plainToClass(Token, res);

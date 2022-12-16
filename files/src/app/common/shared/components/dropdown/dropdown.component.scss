@@ -53,7 +53,7 @@
 }
 
 .dropdown-panel {
-  ::ng-deep &.mat-menu-panel {
+  ::ng-deep &.mat-mdc-menu-panel {
     min-height: auto;
     width: auto;
   }

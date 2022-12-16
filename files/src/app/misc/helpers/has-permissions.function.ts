@@ -1,7 +1,7 @@
 import { UserRole } from '@models/enums/user-role.enum';
 import { permissionMatrix, permissionType } from '@directives/has-permissions/permission-matrix';
 
-export function hasPermissions(currentRole: UserRole, permissions: permissionType[]): boolean {
+export function hasPermissions(currentRole: UserRole, permissions: permissionType[] | undefined): boolean {
   return (
     !permissions ||
     permissions

@@ -28,7 +28,7 @@ export class HttpService extends HttpClient {
     super(handler);
   }
 
-  override get(url: string, options?: IHttpRequestOptions, services?: IServicesConfig | null): Observable<any> {
+  override get(url: string, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);
     const httpOptions: IHttpRequestOptions = {
       headers: new HttpHeaders({
@@ -45,7 +45,7 @@ export class HttpService extends HttpClient {
       );
   }
 
-  override post(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | null): Observable<any> {
+  override post(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);
 
     return super
@@ -57,7 +57,7 @@ export class HttpService extends HttpClient {
       );
   }
 
-  override patch(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | null): Observable<any> {
+  override patch(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);
     const httpOptions: { headers: HttpHeaders } = {
       headers: new HttpHeaders({
@@ -73,7 +73,7 @@ export class HttpService extends HttpClient {
       );
   }
 
-  override delete(url: string, options?: IHttpRequestOptions, services?: IServicesConfig | null): Observable<any> {
+  override delete(url: string, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);
 
     return super
@@ -85,7 +85,7 @@ export class HttpService extends HttpClient {
       );
   }
 
-  override put(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | null): Observable<any> {
+  override put(url: string, body: any | null, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);
 
     return super
@@ -97,13 +97,13 @@ export class HttpService extends HttpClient {
       );
   }
 
-  private _onSuccess(config: IServicesConfig): void {
+  private _onSuccess(config: IServicesConfig | undefined): void {
     if (config?.showSuccessNotification) {
       this._notification.success(config?.showSuccessNotification?.text ?? 'Request successfully sent!');
     }
   }
 
-  private _onError(config: IServicesConfig, error: HttpErrorResponse): Observable<HttpServiceError> {
+  private _onError(config: IServicesConfig | undefined, error: HttpErrorResponse): Observable<HttpServiceError> {
     const customError: HttpServiceError = new HttpServiceError(error);
 
     if (
@@ -120,17 +120,17 @@ export class HttpService extends HttpClient {
     throw customError;
   }
 
-  private _onEveryCase(config: IServicesConfig): void {
+  private _onEveryCase(config: IServicesConfig | undefined): void {
     this._endLoader(config);
   }
 
-  private _startLoader(config: IServicesConfig): void {
+  private _startLoader(config: IServicesConfig | undefined): void {
     if (!config || (config && !config.skipLoaderStart)) {
       this._loader.on();
     }
   }
 
-  private _endLoader(config: IServicesConfig): void {
+  private _endLoader(config: IServicesConfig | undefined): void {
     if (!config || (config && !config.skipLoaderEnd)) {
       this._loader.off();
     }

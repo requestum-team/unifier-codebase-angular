@@ -71,6 +71,10 @@
     transform: translateY(-50%);
   }
 
+  &__size-button-icon {
+    flex-shrink: 0;
+  }
+
   &__navigation {
     display: flex;
     flex-direction: column;
@@ -93,6 +97,7 @@
 
   &__item {
     position: relative;
+    height: min-content;
     justify-content: flex-start;
     padding-left: var(--item-side-padding);
     padding-right: var(--item-side-padding);
@@ -140,6 +145,7 @@
       .mat-expansion-panel-header,
       .mat-expansion-panel-body {
         color: var(--color-black);
+        font: inherit;
       }
 
       .mat-expansion-panel-header {

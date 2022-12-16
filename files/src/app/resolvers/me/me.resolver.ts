@@ -7,14 +7,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MeResolver implements Resolve<Observable<User> | User> {
+export class MeResolver implements Resolve<Observable<User> | User | undefined> {
   constructor(private _auth: AuthService) {}
 
-  resolve(): Observable<User> | User {
+  resolve(): Observable<User> | User | undefined {
     if (this._auth.isAuthenticated) {
-      return this._auth.me || this._auth.getMe();
+      return this._auth.me ?? this._auth.getMe();
     } else {
-      return null;
+      return;
     }
   }
 }

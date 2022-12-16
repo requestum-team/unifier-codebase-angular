@@ -6,7 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class ImagePlaceholderDirective implements OnChanges {
   @Input() placeholder: string;
-  @Input() src: string | ArrayBuffer;
+  @Input() src: string | ArrayBuffer | undefined;
   @HostBinding('src') url: string | SafeResourceUrl;
 
   constructor(private _sanitizer: DomSanitizer) {}

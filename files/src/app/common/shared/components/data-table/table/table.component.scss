@@ -15,8 +15,8 @@
       width: var(--size);
     }
 
-    .mat-column-createdAt,
-    .mat-column-lastUpdatedAt {
+    .mat-mdc-column-createdAt,
+    .mat-mdc-column-lastUpdatedAt {
       max-width: 14rem;
 
       &:last-child {

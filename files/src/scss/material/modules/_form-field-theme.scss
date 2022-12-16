@@ -25,11 +25,15 @@
     @include typography($theme);
   }
 
-  .mat-form-field {
+  .mat-mdc-form-field {
     width: 100%;
 
-    .mat-form-field-infix {
+    .mat-mdc-form-field-infix {
       width: auto;
+
+      .mat-mdc-input-element {
+        line-height: 24px;
+      }
     }
   }
 }

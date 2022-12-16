@@ -22,8 +22,8 @@ export class List<T = any> {
         count = (listEntry as T[])?.length;
         break;
       case Boolean(listEntry?.['hydra:member']) && Boolean(listEntry?.['hydra:totalItems']):
-        items = listEntry['hydra:member'];
-        count = listEntry['hydra:totalItems'];
+        items = listEntry['hydra:member'] as T[];
+        count = listEntry['hydra:totalItems'] as number;
         break;
       default:
         items = [];

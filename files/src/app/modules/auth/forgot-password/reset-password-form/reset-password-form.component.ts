@@ -38,7 +38,7 @@ export class ResetPasswordFormComponent extends BaseFormAbstractComponent implem
     }
 
     this._userApi
-      .sendToken(this.form.email.value, UserTokenAction.resetPassword, null, { skipErrorNotification: true })
+      .sendToken(this.form?.email.value, UserTokenAction.resetPassword, {}, { skipErrorNotification: true })
       .subscribe(this.onSubscribeNext.bind(this));
   }
 

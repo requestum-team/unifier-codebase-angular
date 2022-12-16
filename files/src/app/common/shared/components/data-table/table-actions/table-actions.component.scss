@@ -5,7 +5,7 @@
 }
 
 :host::ng-deep {
-  .action.mat-button-base.mat-button-base {
+  .action.mat-mdc-button-base.mat-mdc-button-base {
     --size: 4rem;
     --fill: var(--color-teki-faded-blue);
   }

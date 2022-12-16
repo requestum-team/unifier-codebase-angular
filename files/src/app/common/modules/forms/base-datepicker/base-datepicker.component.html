@@ -1,5 +1,5 @@
 <label>
-  <mat-form-field [appearance]="appearance" (click)="onLabelClicked()">
+  <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel" (click)="onLabelClicked()">
     <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
     <input
       matInput

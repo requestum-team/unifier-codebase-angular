@@ -43,7 +43,7 @@ export interface IModalData<T = any> {
 })
 export class ModalComponent<T> implements AfterViewInit {
   @ViewChild('modalBody') modalBody: ElementRef<HTMLDivElement>;
-  componentRef: ComponentRef<IModalFormComponent<T>>;
+  componentRef: ComponentRef<IModalFormComponent<T>> | null;
 
   get icon(): string {
     return this.data.icon ?? 'warning_amber';
@@ -53,7 +53,7 @@ export class ModalComponent<T> implements AfterViewInit {
     return { ...this.data?.context, dialog: this._dialog };
   }
 
-  get componentInstance(): IModalFormComponent<T> {
+  get componentInstance(): IModalFormComponent<T> | undefined {
     return this.componentRef?.instance;
   }
 
@@ -78,9 +78,12 @@ export class ModalComponent<T> implements AfterViewInit {
   }
 
   private _createComponent(): void {
-    this.componentRef = this._viewContainerRef.createComponent(this.data.component);
-    this.componentRef.instance.context = this.context;
-    this._renderer.appendChild(this.modalBody.nativeElement, this.componentRef.location.nativeElement);
-    this._cdr.detectChanges();
+    this.componentRef = this.data?.component ? this._viewContainerRef.createComponent(this.data.component) : null;
+
+    if (this.componentRef) {
+      this.componentRef.instance.context = this.context;
+      this._renderer.appendChild(this.modalBody.nativeElement, this.componentRef.location.nativeElement);
+      this._cdr.detectChanges();
+    }
   }
 }

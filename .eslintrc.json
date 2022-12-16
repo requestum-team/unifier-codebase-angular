@@ -30,55 +30,7 @@
         "@typescript-eslint/explicit-function-return-type": ["error"],
         "@typescript-eslint/explicit-module-boundary-types": ["error", { "allowArgumentsExplicitlyTypedAsAny": true }],
         "@typescript-eslint/explicit-member-accessibility": ["error", { "accessibility": "no-public" }],
-        "@typescript-eslint/member-ordering": [
-          "error",
-          {
-            "default": [
-              "signature",
-
-              "public-static-field",
-              "protected-static-field",
-              "private-static-field",
-              "public-decorated-field",
-              "protected-decorated-field",
-              "private-decorated-field",
-              "public-instance-field",
-              "protected-instance-field",
-              "private-instance-field",
-              "public-abstract-field",
-              "protected-abstract-field",
-              "private-abstract-field",
-
-              ["public-static-get", "public-static-set"],
-              ["protected-static-get", "protected-static-set"],
-              ["private-static-get", "private-static-set"],
-              ["public-decorated-get", "public-decorated-set"],
-              ["protected-decorated-get", "protected-decorated-set"],
-              ["private-decorated-get", "private-decorated-set"],
-              ["public-instance-get", "public-instance-set"],
-              ["protected-instance-get", "protected-instance-set"],
-              ["private-instance-get", "private-instance-set"],
-              ["public-abstract-get", "public-abstract-set"],
-              ["protected-abstract-get", "protected-abstract-set"],
-              ["private-abstract-get", "private-abstract-set"],
-
-              "constructor",
-
-              "public-static-method",
-              "protected-static-method",
-              "private-static-method",
-              "public-decorated-method",
-              "protected-decorated-method",
-              "private-decorated-method",
-              "public-instance-method",
-              "protected-instance-method",
-              "private-instance-method",
-              "public-abstract-method",
-              "protected-abstract-method",
-              "private-abstract-method"
-            ]
-          }
-        ],
+        "@typescript-eslint/member-ordering": ["error", { "default": ["signature", "field", ["get", "set"], "constructor", "method"] }],
         "no-empty": ["error"],
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-inferrable-types": "off",

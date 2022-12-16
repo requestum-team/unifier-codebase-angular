@@ -27,7 +27,7 @@ export class UserModalComponent extends BaseFormAbstractComponent implements OnI
   roleOptions: IOption[] = [];
   private readonly _AVAILABLE_ROLES: UserRole[] = [UserRole.admin];
 
-  get user(): User {
+  get user(): User | undefined {
     return this.context?.entity;
   }
 
@@ -40,7 +40,7 @@ export class UserModalComponent extends BaseFormAbstractComponent implements OnI
     };
   }
 
-  get dialog(): MatDialogRef<ModalComponent<User>> {
+  get dialog(): MatDialogRef<ModalComponent<User>> | undefined {
     return this.context?.dialog;
   }
 
@@ -62,7 +62,7 @@ export class UserModalComponent extends BaseFormAbstractComponent implements OnI
       return;
     }
 
-    this.dialog.close(this.getModalResult());
+    this.dialog?.close(this.getModalResult());
   }
 
   private _initForm(): void {

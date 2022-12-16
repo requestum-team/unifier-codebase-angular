@@ -1,5 +1,5 @@
 export interface IPaginatePipeArgs {
-  id?: string;
+  id: string;
   itemsPerPage?: string | number;
   currentPage?: string | number;
   totalItems?: string | number;

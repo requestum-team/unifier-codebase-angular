@@ -10,16 +10,16 @@ import { permissionType } from '@directives/has-permissions/permission-matrix';
 export class HasPermissionsDirective implements OnInit {
   @Input() hasPermissionsThen: TemplateRef<any>;
   @Input() hasPermissionsElse: TemplateRef<any>;
-  @Input() hasPermissions: permissionType[];
+  @Input() hasPermissions: permissionType[] | undefined;
 
-  get currentRole(): UserRole {
+  get currentRole(): UserRole | null {
     return this._auth.myRole;
   }
 
   constructor(private _templateRef: TemplateRef<any>, private _viewContainer: ViewContainerRef, private _auth: AuthService) {}
 
   ngOnInit(): void {
-    if (hasPermissions(this.currentRole, this.hasPermissions)) {
+    if (hasPermissions(this.currentRole as UserRole, this.hasPermissions)) {
       this._viewContainer.createEmbeddedView(this.hasPermissionsThen ?? this._templateRef);
     } else if (this.hasPermissionsElse) {
       this._viewContainer.createEmbeddedView(this.hasPermissionsElse);

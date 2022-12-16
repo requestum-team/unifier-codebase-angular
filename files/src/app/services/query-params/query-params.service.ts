@@ -59,7 +59,7 @@ export class QueryParamsService {
 
   sort(field: string, direction: SortDirection): this {
     if (!field || !['asc', 'desc', ''].includes(direction)) {
-      return null;
+      return this;
     }
     this.clearSort();
 
@@ -112,7 +112,7 @@ export class QueryParamsService {
   }
 
   clearSort(): this {
-    const key: string = this._getCurrentSortKey(this.params);
+    const key: string | undefined = this._getCurrentSortKey(this.params);
 
     if (key) {
       this.clearParams(key);
@@ -128,11 +128,11 @@ export class QueryParamsService {
     return this;
   }
 
-  parseSorting(): Sort {
-    const key: string = this._getCurrentSortKey(this.params);
+  parseSorting(): Sort | undefined {
+    const key: string | undefined = this._getCurrentSortKey(this.params);
 
     if (!key) {
-      return null;
+      return;
     }
 
     const active: string = key.replace(/order\[(.*)]/gi, '$1');
@@ -141,7 +141,7 @@ export class QueryParamsService {
     return { active, direction };
   }
 
-  private _getCurrentSortKey(params: Params): string {
+  private _getCurrentSortKey(params: Params): string | undefined {
     return Object.keys(params).find((key: string): boolean => key.includes('order['));
   }
 
