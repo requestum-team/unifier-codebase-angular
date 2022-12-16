@@ -81,8 +81,8 @@ export abstract class ApiBaseAbstractService<T extends BaseModel> {
     let URLPath: string = this._URL_PATH;
 
     if (this._URLParams?.length) {
-      const params: string[] = URLPath.match(/:[a-z]+(?=\/)?/gi);
-      params.forEach((param: string, i: number): void => {
+      const params: string[] | null = URLPath.match(/:[a-z]+(?=\/)?/gi);
+      params?.forEach((param: string, i: number): void => {
         URLPath = URLPath.replace(param, this._URLParams[i]);
       });
     }

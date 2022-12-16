@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { mergeMap, Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { UserBase } from '@models/classes/user/_user-base.model';
+import { User } from '@models/classes/user/user.model';
 import { ModalService } from '@shared/modal/modal.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -37,8 +37,8 @@ export class SideMenuComponent implements OnInit {
     return this.isCollapsed ? 'chevron_right' : 'chevron_left';
   }
 
-  get user(): UserBase {
-    return this._auth.me;
+  get user(): User {
+    return this._auth.me as User;
   }
 
   ngOnInit(): void {

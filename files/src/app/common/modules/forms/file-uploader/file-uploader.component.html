@@ -9,7 +9,7 @@
     (fileDragover)="fileDragover.emit($event)"
     [style.height]="previewHeight + 'px'"
     [style.width]="previewWidth + 'px'"
-    [style.display]="multiple || (!multiple && !selectFile?.length) ? null : 'none'"
+    [style.display]="multiple || (!multiple && !selectFile.length) ? null : 'none'"
   >
     <input
       #fileInput

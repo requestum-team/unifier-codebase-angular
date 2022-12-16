@@ -12,6 +12,6 @@ export interface IModalAction extends Omit<IAction<boolean>, 'value'> {
   styleUrls: ['./modal-actions.component.scss']
 })
 export class ModalActionsComponent {
-  @Input() actions: IModalAction[];
+  @Input() actions: IModalAction[] | undefined;
   @Output() submitted: EventEmitter<void> = new EventEmitter<void>();
 }

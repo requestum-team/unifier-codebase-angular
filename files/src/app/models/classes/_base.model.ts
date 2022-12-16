@@ -21,7 +21,7 @@ export abstract class BaseModel {
       case 'number':
       case 'default':
       default:
-        return null;
+        return;
     }
   }
 }

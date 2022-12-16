@@ -51,7 +51,7 @@
     <footer class="side-menu__footer">
       <article *ngIf="user" class="side-menu__user">
         <figure class="side-menu__img-wrap">
-          <img [src]="user?.avatar?.uri" alt="User avatar" class="side-menu__img" placeholder="https://via.placeholder.com/1" />
+          <img [src]="user.avatar?.uri" alt="User avatar" class="side-menu__img" placeholder="https://via.placeholder.com/1" />
         </figure>
         <h3 class="side-menu__user-name">{{ user.fullName }}</h3>
         <h3 class="side-menu__user-role">{{ 'USER_ROLE.' + user.role | uppercase | translate }}</h3>

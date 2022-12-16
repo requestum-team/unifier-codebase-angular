@@ -3,6 +3,7 @@ import { PaginatePipeArgs } from 'ngx-pagination';
 import { getRandomIdentifier } from '@misc/helpers/get-random-identifier.function';
 import { PER_PAGE_DEFAULT } from '@misc/constants/_base.constant';
 import { List } from '@models/classes/_list.model';
+import { IPaginatePipeArgs } from '@models/interfaces/paginate-pipe-args.interface';
 
 @Component({
   template: ''
@@ -16,7 +17,7 @@ export abstract class BasePaginationAbstractComponent implements OnChanges {
   totalItems: number = 0;
   private readonly _PAGINATOR_ID: string = getRandomIdentifier();
 
-  get paginatePipeArgs(): PaginatePipeArgs {
+  get paginatePipeArgs(): PaginatePipeArgs & IPaginatePipeArgs {
     return {
       id: this._PAGINATOR_ID,
       itemsPerPage: this.itemsPerPage,

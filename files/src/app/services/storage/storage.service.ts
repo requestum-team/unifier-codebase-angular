@@ -13,19 +13,21 @@ export class StorageService {
   }
 
   private get _current(): Storage {
-    const alreadyUsedStorage: Storage = [sessionStorage, localStorage].find((storage: Storage): string =>
-      storage.getItem(StorageKey.tokens)
+    const alreadyUsedStorage: Storage | undefined = [sessionStorage, localStorage].find((storage: Storage): boolean =>
+      Boolean(storage.getItem(StorageKey.tokens))
     );
     const newStorage: Storage = this._shouldUseLocalstorage$.value ? localStorage : sessionStorage;
 
-    return alreadyUsedStorage || newStorage;
+    return alreadyUsedStorage ?? newStorage;
   }
 
-  get<T>(key: string): T {
-    const currentStorage: Storage = [sessionStorage, localStorage].find((storage: Storage): boolean => Boolean(storage.getItem(key)));
+  get<T>(key: string): T | null {
+    const currentStorage: Storage = [sessionStorage, localStorage].find((storage: Storage): boolean =>
+      Boolean(storage.getItem(key))
+    ) as Storage;
 
     try {
-      return currentStorage?.getItem(key) ? JSON.parse(atob(currentStorage?.getItem(key).split('').reverse().join(''))) : null;
+      return currentStorage?.getItem(key) ? JSON.parse(atob((currentStorage?.getItem(key) as string).split('').reverse().join(''))) : null;
     } catch (err) {
       console.warn(`Can't decode value: `, err);
       return null;

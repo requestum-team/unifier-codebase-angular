@@ -18,7 +18,7 @@ export abstract class BaseFormAbstractComponent implements OnDestroy {
   readonly InputType: typeof InputType = InputType;
   protected readonly _DESTROYED$: Subject<void> = new Subject();
 
-  get form(): IFormControls {
+  get form(): IFormControls | null {
     return this.formGroup?.controls;
   }
 
@@ -48,6 +48,6 @@ export abstract class BaseFormAbstractComponent implements OnDestroy {
   }
 
   private _getItemFormGroup(name: string): AbstractControl {
-    return this.formGroup.get(name);
+    return this.formGroup.get(name) as AbstractControl;
   }
 }

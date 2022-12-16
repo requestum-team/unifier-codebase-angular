@@ -23,8 +23,8 @@ export class TableComponent<T> implements OnChanges {
     if (columns?.currentValue) {
       columns.currentValue.forEach(({ columnName, sort }: IDataTableColumn): void => {
         if (sort?.defaultDirection) {
-          const predefinedSort: Sort = this.queryParams.parseSorting();
-          this.matSort.active = predefinedSort?.active ?? (sort?.name || columnName);
+          const predefinedSort: Sort | undefined = this.queryParams.parseSorting();
+          this.matSort.active = predefinedSort?.active ?? sort?.name ?? columnName;
           this.matSort.direction = predefinedSort?.direction ?? sort?.defaultDirection;
           this._setSortParams(this.matSort.active, this.matSort.direction);
         }
@@ -33,8 +33,10 @@ export class TableComponent<T> implements OnChanges {
   }
 
   onSort(sortState: Sort): void {
-    const column: IDataTableColumn = this.columns.find((column: IDataTableColumn): boolean => column.columnName === sortState.active);
-    this._setSortParams(column?.sort?.name || sortState.active, sortState.direction);
+    const column: IDataTableColumn = this.columns.find(
+      (column: IDataTableColumn): boolean => column.columnName === sortState.active
+    ) as IDataTableColumn;
+    this._setSortParams(column?.sort?.name ?? sortState.active, sortState.direction);
   }
 
   getAsDataTableColumn(item: IDataTableColumn): IDataTableColumn {

@@ -4,7 +4,7 @@ import { IModalData, ModalComponent } from '@shared/modal/modal.component';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-export type IModalProperties = Omit<MatDialogConfig, 'data'> & { shouldHandleFalse: boolean };
+export type IModalProperties = Omit<MatDialogConfig, 'data'> & { shouldHandleFalse?: boolean };
 
 @Injectable({
   providedIn: 'root'

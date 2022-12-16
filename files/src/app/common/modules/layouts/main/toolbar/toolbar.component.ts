@@ -7,7 +7,7 @@ import { ToolbarHelperService } from '@services/toolbar-helper/toolbar-helper.se
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent {
-  get template(): TemplateRef<any> {
+  get template(): TemplateRef<any> | null {
     return this._toolbarHelper.template;
   }
 

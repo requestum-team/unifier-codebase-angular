@@ -20,7 +20,10 @@
     <mat-cell class="table__cell" *matCellDef="let data; let i = index">
       <ng-container *ngIf="columnItem?.template; else base">
         <ng-container
-          *ngTemplateOutlet="columnItem.template; context: { $implicit: data | pathParse: columnItem.columnName, index: i, entity: data }"
+          *ngTemplateOutlet="
+            columnItem.template ?? null;
+            context: { $implicit: data | pathParse: columnItem.columnName, index: i, entity: data }
+          "
         ></ng-container>
       </ng-container>
       <ng-template #base>
@@ -39,7 +42,7 @@
       <ng-container *ngTemplateOutlet="columnItem.headerTemplate; context: { $implicit: columnItem }"></ng-container>
     </ng-container>
     <ng-template #base>
-      {{ columnItem.title | translate }}
+      {{ columnItem.title ?? '' | translate }}
     </ng-template>
   </ng-container>
 </ng-template>

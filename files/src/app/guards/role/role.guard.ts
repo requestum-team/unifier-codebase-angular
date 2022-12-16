@@ -38,7 +38,7 @@ export class RoleGuard implements CanLoad, CanActivate, CanActivateChild {
     const isRoleAllowed: boolean = Boolean((roles ?? [])?.find((role: UserRole): boolean => this._auth.myRole === role));
 
     if (!isRoleAllowed) {
-      if (!shouldSkipErrorNotification) {
+      if (this._auth.myRole && !shouldSkipErrorNotification) {
         this._notification.error(this._translate.instant('BACKEND_ERRORS.ACCESS_DENIED'));
       }
       return redirectTo?.length ? this._router.navigate(redirectTo) : false;

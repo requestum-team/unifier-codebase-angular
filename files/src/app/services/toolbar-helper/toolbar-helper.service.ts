@@ -4,7 +4,7 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 import { filter, pairwise } from 'rxjs/operators';
 
 export interface IToolbarData<T = any> {
-  template: TemplateRef<any>;
+  template: TemplateRef<any> | null;
   templateData?: T;
   isHidden?: boolean;
 }
@@ -27,7 +27,7 @@ export class ToolbarHelperService {
     return this._INFO_VIEWER_DATA$.value;
   }
 
-  get template(): TemplateRef<any> {
+  get template(): TemplateRef<any> | null {
     return this._INFO_VIEWER_DATA$.value?.template;
   }
 
