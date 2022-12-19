@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IDataTableColumn } from '@models/interfaces/data-table-column.interface';
-import { BasePaginationAbstractComponent } from '@misc/abstracts/base-pagination.abstract.component';
+import { AbstractPaginationComponent } from '@misc/abstracts/abstract-pagination.component';
 import { QueryParamsService } from '@services/query-params/query-params.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { QueryParamsService } from '@services/query-params/query-params.service'
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss']
 })
-export class DataTableComponent<T> extends BasePaginationAbstractComponent {
+export class DataTableComponent<T> extends AbstractPaginationComponent {
   @Input() queryParams: QueryParamsService;
   @Input() minWidth: string = '0';
   @Input() maxHeight: string = 'auto';

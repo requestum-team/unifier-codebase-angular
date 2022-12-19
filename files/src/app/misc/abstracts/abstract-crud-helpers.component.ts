@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
@@ -7,18 +7,18 @@ import { IModalProperties, ModalService } from '@shared/modal/modal.service';
 @Component({
   template: ''
 })
-export abstract class CrudHelpersAbstractComponent<T = any> implements OnDestroy {
+export abstract class AbstractCrudHelpersComponent<T = any> implements OnDestroy {
   protected readonly _ACTION_MODAL_COMPONENT: any;
   protected readonly _MESSAGE_MODAL_COMPONENT: any;
   protected readonly _MODAL_OPTIONS: IModalProperties = {} as IModalProperties;
   protected readonly _DESTROYED$: Subject<void> = new Subject<void>();
   protected readonly _MODAL_NAMESPACE: string = '';
+  protected _modal: ModalService = inject(ModalService);
+  protected _translate: TranslateService = inject(TranslateService);
 
   protected get _namespace(): string {
     return this._MODAL_NAMESPACE ? `.${this._MODAL_NAMESPACE}` : '';
   }
-
-  protected constructor(protected _modal: ModalService, protected _translate: TranslateService) {}
 
   ngOnDestroy(): void {
     this._DESTROYED$.next();

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiBaseAbstractService } from '@misc/abstracts/api-base.abstract.service';
+import { AbstractApiBaseService } from '@misc/abstracts/abstract-api-base.service';
 import { ClassConstructor } from 'class-transformer';
 import { IServicesConfig } from '@services/http/http.service';
 import { Observable } from 'rxjs';
@@ -9,7 +9,7 @@ import { toModel } from '@misc/rxjs-operators/to-model.operator';
 @Injectable({
   providedIn: 'root'
 })
-export class FileApiService extends ApiBaseAbstractService<ApiFile> {
+export class FileApiService extends AbstractApiBaseService<ApiFile> {
   protected readonly _URL_PATH: string = '/api/files';
   protected readonly _MODEL: ClassConstructor<ApiFile> = ApiFile;
 

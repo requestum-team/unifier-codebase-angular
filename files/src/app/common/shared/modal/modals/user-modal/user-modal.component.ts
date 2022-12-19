@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { IModalComponentContext, ModalComponent } from '@shared/modal/modal.component';
 import { User } from '@models/classes/user/user.model';
-import { BaseFormAbstractComponent } from '@misc/abstracts/base-form.abstract.component';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
+import { Validators } from '@angular/forms';
 import { UserRole } from '@models/enums/user-role.enum';
 import { IOption } from '@models/interfaces/forms/option.interface';
 import { VALIDATORS_SET } from '@misc/constants/validators-set.constant';
@@ -22,10 +22,11 @@ interface IFormValues {
   templateUrl: './user-modal.component.html',
   styleUrls: ['./user-modal.component.scss']
 })
-export class UserModalComponent extends BaseFormAbstractComponent implements OnInit {
+export class UserModalComponent extends AbstractFormComponent implements OnInit {
   @Input() context: IModalComponentContext<User>;
   roleOptions: IOption[] = [];
   private readonly _AVAILABLE_ROLES: UserRole[] = [UserRole.admin];
+  private _translate: TranslateService = inject(TranslateService);
 
   get user(): User | undefined {
     return this.context?.entity;
@@ -44,13 +45,9 @@ export class UserModalComponent extends BaseFormAbstractComponent implements OnI
     return this.context?.dialog;
   }
 
-  constructor(private _translate: TranslateService, private _fb: FormBuilder) {
-    super();
-  }
-
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
     this._initOptions();
-    this._initForm();
   }
 
   getModalResult(): IFormValues {
@@ -65,7 +62,7 @@ export class UserModalComponent extends BaseFormAbstractComponent implements OnI
     this.dialog?.close(this.getModalResult());
   }
 
-  private _initForm(): void {
+  protected _initForm(): void {
     this.formGroup = this._fb.group({
       firstName: this._fb.control(this.defaultValues?.firstName, Validators.compose([Validators.required, VALIDATORS_SET.NAME])),
       lastName: this._fb.control(this.defaultValues?.lastName, Validators.compose([Validators.required, VALIDATORS_SET.NAME])),

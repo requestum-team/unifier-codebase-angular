@@ -2,7 +2,7 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 import { transformToDate } from '@misc/helpers/model-conversion/transform-helpers/transform-to-date.function';
 
 @Exclude()
-export abstract class BaseModel {
+export abstract class AbstractModel {
   @Expose({ name: '@id' })
   iri: string;
   @Expose()

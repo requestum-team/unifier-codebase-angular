@@ -7,7 +7,7 @@ import { getRandomIdentifier } from '@misc/helpers/get-random-identifier.functio
 import { Params } from '@angular/router';
 import { QueryParamsService } from '@services/query-params/query-params.service';
 
-export abstract class Responses<T extends { id: string }> {
+export abstract class AbstractResponses<T extends { id: string }> {
   readonly ENTITIES: (T | Partial<T>)[] = [];
   protected abstract readonly _MODEL: ClassConstructor<T>;
 

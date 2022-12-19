@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter, TemplateRef } from '@angular/core';
-import { BaseFormFieldAbstractComponent } from '@misc/abstracts/base-form-field.abstract.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
 import { map, takeUntil, auditTime, filter, pairwise } from 'rxjs/operators';
 
 @Component({
@@ -7,7 +7,7 @@ import { map, takeUntil, auditTime, filter, pairwise } from 'rxjs/operators';
   templateUrl: './base-autocomplete.component.html',
   styleUrls: ['./base-autocomplete.component.scss']
 })
-export class BaseAutocompleteComponent extends BaseFormFieldAbstractComponent implements OnInit {
+export class BaseAutocompleteComponent extends AbstractFormFieldComponent implements OnInit {
   @Output() keywordDefined: EventEmitter<string> = new EventEmitter<string>();
   @Input() options: any[];
   @Input() optionTemplate: TemplateRef<any>;

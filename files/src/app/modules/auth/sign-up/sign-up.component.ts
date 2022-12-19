@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { BaseFormAbstractComponent } from '@misc/abstracts/base-form.abstract.component';
-import { AuthService } from '@services/auth/auth.service';
+import { Component, inject } from '@angular/core';
+import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
 import { Router } from '@angular/router';
 import { UserApiService } from '@services/api/user-api/user-api.service';
 
@@ -10,10 +8,9 @@ import { UserApiService } from '@services/api/user-api/user-api.service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent extends BaseFormAbstractComponent {
-  constructor(private _formBuilder: FormBuilder, private _auth: AuthService, private _userApi: UserApiService, private _router: Router) {
-    super();
-  }
+export class SignUpComponent extends AbstractFormComponent {
+  private _userApi: UserApiService = inject(UserApiService);
+  private _router: Router = inject(Router);
 
   onSubmit(): void {
     if (this.formGroup.invalid) {
@@ -21,5 +18,9 @@ export class SignUpComponent extends BaseFormAbstractComponent {
     }
 
     this._userApi.createItem(this.formGroup.getRawValue()).subscribe((): Promise<boolean> => this._router.navigate(['']));
+  }
+
+  protected override _initForm(): void {
+    this.formGroup = this._fb.group({});
   }
 }

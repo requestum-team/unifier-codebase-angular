@@ -33,7 +33,7 @@ export interface IModalData<T = any> {
   template?: TemplateRef<any>;
   component?: Type<IModalFormComponent>;
   context?: IModalComponentContext<T>;
-  actions?: IModalAction[];
+  actions?: IModalAction[] | null;
 }
 
 @Component({

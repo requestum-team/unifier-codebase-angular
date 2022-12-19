@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { BaseFormFieldAbstractComponent } from '@misc/abstracts/base-form-field.abstract.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
 import { IOption } from '@models/interfaces/forms/option.interface';
 
 @Component({
@@ -7,7 +7,7 @@ import { IOption } from '@models/interfaces/forms/option.interface';
   templateUrl: './base-select.component.html',
   styleUrls: ['./base-select.component.scss']
 })
-export class BaseSelectComponent extends BaseFormFieldAbstractComponent {
+export class BaseSelectComponent extends AbstractFormFieldComponent {
   @Input() options: IOption[];
   @Input() multiple: boolean;
   @Input() triggerTemplate: TemplateRef<any>;

@@ -1,13 +1,13 @@
 import { User } from '@models/classes/user/user.model';
 import { UserRole } from '@models/enums/user-role.enum';
 import { convertToModel } from '@misc/helpers/model-conversion/convert-to-model.function';
-import { Responses } from '@interceptors/mock/responses/_responses.class';
+import { AbstractResponses } from '@interceptors/mock/responses/_responses.class';
 import { ClassConstructor } from 'class-transformer';
 import { Observable, of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Params } from '@angular/router';
 
-class UserResponses extends Responses<User> {
+class UserResponses extends AbstractResponses<User> {
   override readonly ENTITIES: User[] = [
     convertToModel(
       {

@@ -1,11 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { merge, Observable } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ModalService } from '@shared/modal/modal.service';
-import { TranslateService } from '@ngx-translate/core';
 import { HttpServiceError } from '@services/http/http-service-error.class';
-import { CrudHelpersAbstractComponent } from '@misc/abstracts/crud-helpers.abstract.component';
+import { AbstractCrudHelpersComponent } from '@misc/abstracts/abstract-crud-helpers.component';
 import { List } from '@models/classes/_list.model';
 import { DATE_FORMAT } from '@misc/constants/_base.constant';
 import { IDateRange, QueryParamsService } from '@services/query-params/query-params.service';
@@ -14,8 +12,10 @@ import { IDateRange, QueryParamsService } from '@services/query-params/query-par
   template: '',
   providers: [QueryParamsService]
 })
-export abstract class ListingApiAbstractComponent<T = any> extends CrudHelpersAbstractComponent<T> implements OnInit, OnDestroy {
+export abstract class AbstractListingApiComponent<T = any> extends AbstractCrudHelpersComponent<T> implements OnInit, OnDestroy {
   isLoading: boolean = false;
+  protected _queryParams: QueryParamsService = inject(QueryParamsService);
+  protected _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   readonly BASE_DATE_FORMAT: string = DATE_FORMAT.FULL;
   abstract list: List<T>;
 
@@ -23,14 +23,9 @@ export abstract class ListingApiAbstractComponent<T = any> extends CrudHelpersAb
     return this._queryParams.params;
   }
 
-  protected constructor(
-    protected _queryParams: QueryParamsService,
-    protected _activatedRoute: ActivatedRoute,
-    protected override _modal: ModalService,
-    protected override _translate: TranslateService
-  ) {
-    super(_modal, _translate);
-    _queryParams.shouldTranslateParamsToURL = false;
+  constructor() {
+    super();
+    this._queryParams.shouldTranslateParamsToURL = false;
   }
 
   ngOnInit(): void {

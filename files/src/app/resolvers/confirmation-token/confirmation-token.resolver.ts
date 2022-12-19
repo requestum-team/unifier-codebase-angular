@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, first, switchMap } from 'rxjs/operators';
@@ -10,7 +10,8 @@ import { UserApiService } from '@services/api/user-api/user-api.service';
   providedIn: 'root'
 })
 export class ConfirmationTokenResolver implements Resolve<Observable<string> | void> {
-  constructor(private _auth: AuthService, private _userApi: UserApiService) {}
+  private _auth: AuthService = inject(AuthService);
+  private _userApi: UserApiService = inject(UserApiService);
 
   resolve({ queryParamMap }: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | void {
     return this._auth.getTemporaryToken().pipe(

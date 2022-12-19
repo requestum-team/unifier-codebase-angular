@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { BaseFormFieldAbstractComponent } from '@misc/abstracts/base-form-field.abstract.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
 import { FormControl } from '@angular/forms';
 import { FileType } from '@models/enums/file-type.enum';
 import { ApiFile } from '@models/classes/file.model';
@@ -14,7 +14,7 @@ import { Observable, zip } from 'rxjs';
   templateUrl: './file-uploader.component.html',
   styleUrls: ['./file-uploader.component.scss']
 })
-export class FileUploaderComponent extends BaseFormFieldAbstractComponent implements OnInit {
+export class FileUploaderComponent extends AbstractFormFieldComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   @Output() fileDragover: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
   @Output() fileDragleave: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
@@ -124,7 +124,7 @@ export class FileUploaderComponent extends BaseFormFieldAbstractComponent implem
     event.stopPropagation();
     event.preventDefault();
     const haveBeenErrored: boolean = Boolean(this.fileError);
-    this.filesWithError.delete(this.selectFile?.find?.((file: ApiFile, index: number): boolean => idx === index)?.originalName as string);
+    this.filesWithError.delete(this.selectFile?.find?.((file: ApiFile, index: number): boolean => idx === index)?.name as string);
     this.selectFile = (this.selectFile as ApiFile[]).filter((file: ApiFile, index: number): boolean => idx !== index);
     this.control.setValue(
       this.control.value?.length ? this.control.value.filter((file: File, index: number): boolean => idx !== index) : null

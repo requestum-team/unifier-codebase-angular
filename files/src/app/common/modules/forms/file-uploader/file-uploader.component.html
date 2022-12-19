@@ -25,11 +25,11 @@
     <li
       *ngFor="let file of selectFile; let idx = index"
       class="file-uploader__file-item"
-      [class.error]="isFileMaxSize(file) || filesWithError.has(file.originalName || file.name)"
+      [class.error]="isFileMaxSize(file) || filesWithError.has(file.name)"
       [style.height]="previewHeight + 'px'"
       [style.width]="previewWidth + 'px'"
     >
-      <mat-spinner class="file-uploader__loader" *ngIf="filesOnLoading.has(file.originalName || file.name)" [diameter]="20"></mat-spinner>
+      <mat-spinner class="file-uploader__loader" *ngIf="filesOnLoading.has(file.name)" [diameter]="20"></mat-spinner>
       <img
         class="file-uploader__preview"
         [width]="previewWidth"
@@ -37,11 +37,7 @@
         [src]="getNativeFileUrl(file)"
         [alt]="file.name"
       />
-      <div
-        class="file-uploader__file-actions"
-        [ngClass]="actionsPositionClasses"
-        *ngIf="!filesOnLoading.has(file.originalName || file.name)"
-      >
+      <div class="file-uploader__file-actions" [ngClass]="actionsPositionClasses" *ngIf="!filesOnLoading.has(file.name)">
         <button *ngIf="!multiple" class="file-uploader__action" [color]="actionsColor" mat-icon-button (click)="chooseAnotherFile()">
           <mat-icon svgIcon="refresh"></mat-icon>
         </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -7,6 +7,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./confirmation-email.component.scss']
 })
 export class ConfirmationEmailComponent implements OnInit {
+  private _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   readonly PAGE_KEY: string = 'AUTH';
   heading: string = `${this.PAGE_KEY}.CONFIRMATION_SUCCESS`;
   isError: boolean;
@@ -14,8 +15,6 @@ export class ConfirmationEmailComponent implements OnInit {
   get subheading(): string {
     return this.isError ? `${this.PAGE_KEY}.TRY_ANOTHER_LINK` : `${this.PAGE_KEY}.GO_TO_APP`;
   }
-
-  constructor(private _activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this._activatedRoute.data.subscribe(({ emailConfirmationErrorMessage }: Params): void => {

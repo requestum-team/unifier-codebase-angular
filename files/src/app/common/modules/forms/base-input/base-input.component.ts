@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BaseFormFieldAbstractComponent } from '@misc/abstracts/base-form-field.abstract.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
 import { InputType } from '@models/enums/input-type.enum';
 
 @Component({
@@ -7,7 +7,7 @@ import { InputType } from '@models/enums/input-type.enum';
   templateUrl: './base-input.component.html',
   styleUrls: ['./base-input.component.scss']
 })
-export class BaseInputComponent extends BaseFormFieldAbstractComponent {
+export class BaseInputComponent extends AbstractFormFieldComponent {
   @Input() inputType: InputType;
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
   private _shouldRevealPassword: boolean = false;

@@ -1,11 +1,11 @@
 import { Exclude, Expose, Transform, TransformFnParams } from 'class-transformer';
 import { UserRole } from '@models/enums/user-role.enum';
-import { BaseModel } from '@models/classes/_base.model';
+import { AbstractModel } from '@models/classes/_base.model';
 import { ApiFile } from '@models/classes/file.model';
 import { transformToModel } from '@misc/helpers/model-conversion/transform-helpers/transform-to-model.function';
 
 @Exclude()
-export class UserBase extends BaseModel {
+export class UserBase extends AbstractModel {
   @Expose()
   role: UserRole;
   @Expose()

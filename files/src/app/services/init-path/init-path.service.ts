@@ -1,10 +1,11 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InitPathService implements OnDestroy {
+  private _location: Location = inject(Location);
   private _path: string | null;
 
   get initialUrl(): string[] {
@@ -12,8 +13,6 @@ export class InitPathService implements OnDestroy {
 
     return this._path && this._path !== '/' ? this._path.split('/') : defaultUrl;
   }
-
-  constructor(private _location: Location) {}
 
   ngOnDestroy(): void {
     this.clear();

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   template: ''
 })
-export abstract class BaseFormFieldAbstractComponent implements OnChanges, OnDestroy {
+export abstract class AbstractFormFieldComponent implements OnChanges, OnDestroy {
   @Input() icon: string;
   @Input() customRequiredKey: string;
   @Input() placeholder: string;

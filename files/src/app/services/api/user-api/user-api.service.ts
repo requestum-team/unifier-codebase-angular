@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiBaseAbstractService } from '@misc/abstracts/api-base.abstract.service';
+import { AbstractApiBaseService } from '@misc/abstracts/abstract-api-base.service';
 import { User } from '@models/classes/user/user.model';
 import { IServicesConfig } from '@services/http/http.service';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { UserTokenAction } from '@models/enums/user-token-action.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class UserApiService extends ApiBaseAbstractService<User> {
+export class UserApiService extends AbstractApiBaseService<User> {
   protected readonly _URL_PATH: string = '/api/users';
   protected readonly _MODEL: ClassConstructor<User> = User;
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { auditTime } from 'rxjs/operators';
@@ -19,6 +19,8 @@ export interface IDateRange {
   providedIn: 'root'
 })
 export class QueryParamsService {
+  private _activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  private _router: Router = inject(Router);
   static readonly BASE_KEYS: IQueryBuilderBaseKeys = Object.freeze({
     ORDER_BY: 'order-by',
     PAGE: 'page',
@@ -43,8 +45,6 @@ export class QueryParamsService {
   get params(): Params {
     return this._PARAMS$.value;
   }
-
-  constructor(private _activatedRoute: ActivatedRoute, private _router: Router) {}
 
   paginate(page: number, perPage?: number): this {
     const params: Params = {

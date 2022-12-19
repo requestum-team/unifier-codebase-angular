@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, Input, ViewChild } from '@angular/core';
-import { BaseFormFieldAbstractComponent } from '@misc/abstracts/base-form-field.abstract.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
@@ -7,7 +7,7 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepi
   templateUrl: './base-datepicker.component.html',
   styleUrls: ['./base-datepicker.component.scss']
 })
-export class BaseDatepickerComponent extends BaseFormFieldAbstractComponent {
+export class BaseDatepickerComponent extends AbstractFormFieldComponent {
   @Input() startDate: Date = new Date();
   @Input() minDate: Date | string | number | undefined;
   @Input() maxDate: Date | string | number | undefined;

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { LoaderService } from '@services/loader/loader.service';
@@ -19,14 +19,9 @@ export interface IServicesConfig {
   providedIn: 'root'
 })
 export class HttpService extends HttpClient {
-  constructor(
-    handler: HttpHandler,
-    private _notification: ToastrService,
-    private _loader: LoaderService,
-    private _translate: TranslateService
-  ) {
-    super(handler);
-  }
+  private _notification: ToastrService = inject(ToastrService);
+  private _loader: LoaderService = inject(LoaderService);
+  private _translate: TranslateService = inject(TranslateService);
 
   override get(url: string, options?: IHttpRequestOptions, services?: IServicesConfig | undefined): Observable<any> {
     this._startLoader(services);

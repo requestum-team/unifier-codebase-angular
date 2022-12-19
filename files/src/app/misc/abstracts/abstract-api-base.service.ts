@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
 import { HttpService, IServicesConfig } from '@services/http/http.service';
@@ -9,7 +9,7 @@ import { CustomHTTPParamsEncoder } from '@misc/custom-http-params-encoder';
 import { HttpParams } from '@angular/common/http';
 import { List } from '@models/classes/_list.model';
 import { APP_CONFIG, IAppConfig } from '@misc/constants/app-config.constant';
-import { BaseModel } from '@models/classes/_base.model';
+import { AbstractModel } from '@models/classes/_base.model';
 
 export type transition = 'cancel' | 'reject' | 'accept';
 
@@ -23,7 +23,8 @@ export interface ITransitData {
 @Injectable({
   providedIn: 'root'
 })
-export abstract class ApiBaseAbstractService<T extends BaseModel> {
+export abstract class AbstractApiBaseService<T extends AbstractModel> {
+  protected _http: HttpService = inject(HttpService);
   protected _URLParams: string[] = [];
   protected abstract readonly _MODEL: ClassConstructor<T>;
   protected abstract readonly _URL_PATH: string;
@@ -36,7 +37,7 @@ export abstract class ApiBaseAbstractService<T extends BaseModel> {
     return this.baseUrl + this._composeUrlPath();
   }
 
-  protected constructor(@Inject(APP_CONFIG) protected _config: IAppConfig, protected _http: HttpService) {}
+  constructor(@Inject(APP_CONFIG) protected _config: IAppConfig) {}
 
   getItems(params?: Params, servicesConfig?: IServicesConfig): Observable<List<T>> {
     const httpParams: HttpParams = new HttpParams({ fromObject: params, encoder: new CustomHTTPParamsEncoder() });

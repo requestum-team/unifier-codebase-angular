@@ -1,5 +1,5 @@
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
-import { Component, OnDestroy } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { InputType } from '@models/enums/input-type.enum';
 import { IFormControlItem } from '@models/interfaces/forms/form-control-item.interface';
@@ -12,14 +12,19 @@ export interface IFormControls {
 @Component({
   template: ''
 })
-export abstract class BaseFormAbstractComponent implements OnDestroy {
+export abstract class AbstractFormComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   readonly FormControlItemType: typeof FormControlItemType = FormControlItemType;
   readonly InputType: typeof InputType = InputType;
+  protected _fb: FormBuilder = inject(FormBuilder);
   protected readonly _DESTROYED$: Subject<void> = new Subject();
 
   get form(): IFormControls | null {
     return this.formGroup?.controls;
+  }
+
+  ngOnInit(): void {
+    this._initForm();
   }
 
   ngOnDestroy(): void {
@@ -50,4 +55,6 @@ export abstract class BaseFormAbstractComponent implements OnDestroy {
   private _getItemFormGroup(name: string): AbstractControl {
     return this.formGroup.get(name) as AbstractControl;
   }
+
+  protected abstract _initForm(): void;
 }

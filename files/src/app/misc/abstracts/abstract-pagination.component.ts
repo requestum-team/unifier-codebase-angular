@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PaginatePipeArgs } from 'ngx-pagination';
 import { getRandomIdentifier } from '@misc/helpers/get-random-identifier.function';
 import { PER_PAGE_DEFAULT } from '@misc/constants/_base.constant';
@@ -8,7 +8,7 @@ import { IPaginatePipeArgs } from '@models/interfaces/paginate-pipe-args.interfa
 @Component({
   template: ''
 })
-export abstract class BasePaginationAbstractComponent implements OnChanges {
+export abstract class AbstractPaginationComponent implements OnChanges {
   @Input() isLoading: boolean;
   @Input() list: List;
   @Input() itemsPerPage: number = PER_PAGE_DEFAULT;
@@ -16,6 +16,7 @@ export abstract class BasePaginationAbstractComponent implements OnChanges {
   entities: any[] = [];
   totalItems: number = 0;
   private readonly _PAGINATOR_ID: string = getRandomIdentifier();
+  protected _cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   get paginatePipeArgs(): PaginatePipeArgs & IPaginatePipeArgs {
     return {
@@ -31,8 +32,6 @@ export abstract class BasePaginationAbstractComponent implements OnChanges {
     this.totalItems = Number(totalItems);
     this._cdr.detectChanges();
   }
-
-  constructor(protected _cdr: ChangeDetectorRef) {}
 
   ngOnChanges({ list, itemsPerPage }: SimpleChanges): void {
     if (list?.currentValue) {

@@ -60,6 +60,12 @@
         "@typescript-eslint/naming-convention": [
           "error",
           {
+            "selector": "class",
+            "modifiers": ["abstract"],
+            "format": ["PascalCase"],
+            "prefix": ["Abstract"]
+          },
+          {
             "selector": ["variable", "parameter", "classProperty", "accessor"],
             "types": ["boolean"],
             "format": ["PascalCase", "camelCase"],

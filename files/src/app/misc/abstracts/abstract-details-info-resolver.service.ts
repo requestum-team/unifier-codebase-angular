@@ -1,19 +1,18 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpServiceError } from '@services/http/http-service-error.class';
-import { BaseModel } from '@models/classes/_base.model';
-import { ApiBaseAbstractService } from '@misc/abstracts/api-base.abstract.service';
+import { AbstractModel } from '@models/classes/_base.model';
+import { AbstractApiBaseService } from '@misc/abstracts/abstract-api-base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export abstract class DetailsInfoAbstractResolver<Model extends BaseModel> implements Resolve<Model> {
+export abstract class AbstractDetailsInfoResolver<Model extends AbstractModel> implements Resolve<Model> {
+  private _router: Router = inject(Router);
   protected abstract readonly _PARAM_NAME: string;
-  protected abstract _api: ApiBaseAbstractService<Model>;
-
-  protected constructor(private _router: Router) {}
+  protected abstract _api: AbstractApiBaseService<Model>;
 
   resolve({ params }: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Model> {
     return this._api.getItem(params[this._PARAM_NAME]).pipe(
