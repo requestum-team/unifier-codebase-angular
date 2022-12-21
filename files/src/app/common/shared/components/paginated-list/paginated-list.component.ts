@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { AbstractPaginationComponent } from '@misc/abstracts/abstract-pagination.component';
+import { AbstractPaginationComponent } from '@misc/abstracts/components/abstract-pagination.component';
 import { QueryParamsService } from '@services/query-params/query-params.service';
 
 @Component({

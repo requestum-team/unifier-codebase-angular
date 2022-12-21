@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractAppComponent } from '@misc/abstracts/abstract-app.component';
+import { AbstractAppComponent } from '@misc/abstracts/components/abstract-app.component';
 
 @Component({
   selector: 'app-root',

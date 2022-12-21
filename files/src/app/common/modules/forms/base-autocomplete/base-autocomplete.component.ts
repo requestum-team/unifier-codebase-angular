@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter, TemplateRef } from '@angular/core';
-import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { map, takeUntil, auditTime, filter, pairwise } from 'rxjs/operators';
 
 @Component({

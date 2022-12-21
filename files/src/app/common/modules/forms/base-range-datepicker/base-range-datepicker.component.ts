@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup } from '@angular/forms';

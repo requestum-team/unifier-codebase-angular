@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { FormControl } from '@angular/forms';
 import { FileType } from '@models/enums/file-type.enum';
 import { ApiFile } from '@models/classes/file.model';

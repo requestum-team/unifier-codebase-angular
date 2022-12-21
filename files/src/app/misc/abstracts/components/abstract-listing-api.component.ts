@@ -3,7 +3,7 @@ import { merge, Observable } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { HttpServiceError } from '@services/http/http-service-error.class';
-import { AbstractCrudHelpersComponent } from '@misc/abstracts/abstract-crud-helpers.component';
+import { AbstractCrudHelpersComponent } from '@misc/abstracts/components/abstract-crud-helpers.component';
 import { List } from '@models/classes/_list.model';
 import { DATE_FORMAT } from '@misc/constants/_base.constant';
 import { IDateRange, QueryParamsService } from '@services/query-params/query-params.service';

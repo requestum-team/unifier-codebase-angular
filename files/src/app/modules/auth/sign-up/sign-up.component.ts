@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
+import { AbstractFormComponent } from '@misc/abstracts/components/abstract-form.component';
 import { Router } from '@angular/router';
 import { UserApiService } from '@services/api/user-api/user-api.service';
 

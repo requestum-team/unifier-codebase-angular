@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
-import { LoaderService } from '@services/loader/loader.service';
+import { LoaderService, LoaderType } from '@services/loader/loader.service';
 import { IErrorDescription, HttpServiceError } from '@services/http/http-service-error.class';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,7 @@ import { IHttpRequestOptions } from '@models/interfaces/http-request-options.int
 export interface IServicesConfig {
   skipErrorNotification?: ((err: HttpServiceError) => boolean) | boolean;
   showSuccessNotification?: { text: string };
+  loaderType?: LoaderType;
   skipLoaderStart?: boolean;
   skipLoaderEnd?: boolean;
 }
@@ -121,13 +122,13 @@ export class HttpService extends HttpClient {
 
   private _startLoader(config: IServicesConfig | undefined): void {
     if (!config || (config && !config.skipLoaderStart)) {
-      this._loader.on();
+      this._loader.on(config?.loaderType ?? 'spinner');
     }
   }
 
   private _endLoader(config: IServicesConfig | undefined): void {
     if (!config || (config && !config.skipLoaderEnd)) {
-      this._loader.off();
+      this._loader.off(config?.loaderType ?? 'spinner');
     }
   }
 }

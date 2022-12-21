@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IDataTableColumn } from '@models/interfaces/data-table-column.interface';
-import { AbstractPaginationComponent } from '@misc/abstracts/abstract-pagination.component';
+import { AbstractPaginationComponent } from '@misc/abstracts/components/abstract-pagination.component';
 import { QueryParamsService } from '@services/query-params/query-params.service';
 
 @Component({

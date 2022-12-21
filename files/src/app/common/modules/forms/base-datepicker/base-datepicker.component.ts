@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, Input, ViewChild } from '@angular/core';
-import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({

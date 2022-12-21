@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AbstractFormFieldComponent } from '@misc/abstracts/abstract-form-field.component';
+import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { InputType } from '@models/enums/input-type.enum';
 
 @Component({

@@ -4,7 +4,7 @@ import { VALIDATORS_SET } from '@misc/constants/validators-set.constant';
 import { Router } from '@angular/router';
 import { CustomValidators } from '@misc/custom-validators';
 import { UserApiService } from '@services/api/user-api/user-api.service';
-import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
+import { AbstractFormComponent } from '@misc/abstracts/components/abstract-form.component';
 
 @Component({
   selector: 'set-new-password-form',

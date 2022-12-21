@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { IModalComponentContext, ModalComponent } from '@shared/modal/modal.component';
 import { User } from '@models/classes/user/user.model';
-import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
+import { AbstractFormComponent } from '@misc/abstracts/components/abstract-form.component';
 import { Validators } from '@angular/forms';
 import { UserRole } from '@models/enums/user-role.enum';
 import { IOption } from '@models/interfaces/forms/option.interface';

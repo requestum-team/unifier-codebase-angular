@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
 import { VALIDATORS_SET } from '@misc/constants/validators-set.constant';
 import { BooleanFieldType } from '@forms/base-boolean-field/base-boolean-field.component';
-import { AbstractFormComponent } from '@misc/abstracts/abstract-form.component';
+import { AbstractFormComponent } from '@misc/abstracts/components/abstract-form.component';
 import { InitPathService } from '@services/init-path/init-path.service';
 
 @Component({

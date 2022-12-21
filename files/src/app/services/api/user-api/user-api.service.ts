@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractApiBaseService } from '@misc/abstracts/abstract-api-base.service';
+import { AbstractApiBaseService } from '@misc/abstracts/resolvers/abstract-api-base.service';
 import { User } from '@models/classes/user/user.model';
 import { IServicesConfig } from '@services/http/http.service';
 import { Observable } from 'rxjs';

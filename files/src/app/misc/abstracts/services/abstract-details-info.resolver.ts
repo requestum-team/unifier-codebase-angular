@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpServiceError } from '@services/http/http-service-error.class';
 import { AbstractModel } from '@models/classes/_base.model';
-import { AbstractApiBaseService } from '@misc/abstracts/abstract-api-base.service';
+import { AbstractApiBaseService } from '@misc/abstracts/resolvers/abstract-api-base.service';
 
 @Injectable({
   providedIn: 'root'
