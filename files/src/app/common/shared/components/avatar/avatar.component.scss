@@ -1,0 +1,22 @@
+.avatar {
+  --border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  transition-property: height, width;
+  transition-duration: 0.3s;
+
+  &__image {
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    transition-property: height, width;
+    transition-duration: 0.3s;
+  }
+
+  &__initials {
+    line-height: 1;
+    transition-property: font-size;
+    transition-duration: 0.3s;
+  }
+}

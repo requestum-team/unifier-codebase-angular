@@ -26,7 +26,16 @@
   }
 
   .mat-mdc-form-field {
+    --bg-color: var(--color-white);
     width: 100%;
+
+    &.mat-form-field-autofilled {
+      --bg-color: #e8f0fe;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background-color: var(--bg-color);
+    }
 
     .mat-mdc-form-field-infix {
       width: auto;

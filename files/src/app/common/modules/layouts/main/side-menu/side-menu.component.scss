@@ -4,10 +4,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
-
-.side-menu {
-  $self: &;
 
   --button-border-size: 0.4rem;
   --button-base-size: 3.2rem;
@@ -17,6 +13,10 @@
   --avatar-size: 6.4rem;
   --opened-width: 32rem;
   --sidebar-side-indent: calc(var(--button-full-size) / 2);
+}
+
+.side-menu {
+  $self: &;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -207,12 +207,6 @@
     border-radius: 50%;
     overflow: hidden;
     transition: width 0.3s, height 0.3s;
-  }
-
-  &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
   &__user-name {

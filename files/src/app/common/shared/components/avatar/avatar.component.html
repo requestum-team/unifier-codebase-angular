@@ -1,0 +1,8 @@
+<div class="avatar" [style.background-color]="color?.bg" [style.height]="size" [style.width]="size">
+  <ng-container *ngIf="src">
+    <img [style.height]="size" [style.width]="size" class="avatar__image" [src]="src" [alt]="name" />
+  </ng-container>
+  <ng-container *ngIf="name && !src">
+    <span class="avatar__initials" [style.color]="color?.text" [style.font-size]="fontSize">{{ initials }}</span>
+  </ng-container>
+</div>
