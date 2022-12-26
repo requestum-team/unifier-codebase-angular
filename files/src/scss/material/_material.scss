@@ -4,12 +4,14 @@
 @use "material/modules/form-field-theme" as form-field;
 
 @use "material/palettes/custom-primary" as primary;
+@use "material/palettes/custom-accent" as accent;
+@use "material/palettes/custom-warn" as warn;
 
 @include mat.core();
 
 $primary-palette: mat.define-palette(primary.$palette, 200, 100, 300);
-$accent-palette: mat.define-palette(mat.$orange-palette, A200, A100, A400);
-$warn-palette: mat.define-palette(mat.$red-palette, 300, 200, 400);
+$accent-palette: mat.define-palette(accent.$palette, 200, 100, 300);
+$warn-palette: mat.define-palette(warn.$palette, 200, 100, 300);
 
 $custom-typography: mat.define-typography-config(
   $font-family: var(--ff-main-font),

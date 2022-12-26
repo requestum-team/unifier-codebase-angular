@@ -1,6 +1,6 @@
 @use "variables/modules/colors" as colors;
 
-$color: colors.$color-primary;
+$color: colors.$color-accent;
 
 $palette: (
   50: lighten($color: $color, $amount: 0.5),

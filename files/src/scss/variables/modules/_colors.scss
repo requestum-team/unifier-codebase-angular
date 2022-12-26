@@ -1,12 +1,24 @@
+$color-blue: #1847cf;
+$color-primary: $color-blue;
+
+$color-orange: #f2870d;
+$color-accent: $color-orange;
+
+$color-red: #f84040;
+$color-warn: $color-red;
+
+$color-black: #000;
+$color-gray: #dcdcdc;
+$color-white: #fff;
+
 :root {
-  // VALUES
-
-  --value-black: 0 0 0; // #000
-  --value-white: 255 255 255; // #fff
-  --value-red: 242 9 23; // #f20917
-  // COLORS
-
-  --color-black: rgb(var(--value-black)); // #000
-  --color-white: rgb(var(--value-white)); // #fff
-  --color-red: rgb(var(--value-red)); // #f20917
+  --color-blue: #{$color-blue};
+  --color-primary: #{$color-primary};
+  --color-orange: #{$color-orange};
+  --color-accent: #{$color-accent};
+  --color-red: #{$color-red};
+  --color-warn: #{$color-warn};
+  --color-black: #{$color-black};
+  --color-gray: #{$color-gray};
+  --color-white: #{$color-white};
 }

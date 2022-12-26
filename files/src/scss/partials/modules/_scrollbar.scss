@@ -1,5 +1,5 @@
 * {
-  --mozilla-scrollbar-colors: rgb(var(--value-black) / 50%) transparent;
+  --mozilla-scrollbar-colors: var(--color-gray) transparent;
   scrollbar-color: var(--mozilla-scrollbar-colors);
   scrollbar-width: thin;
 
@@ -12,11 +12,7 @@
 
   ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background-color: rgb(var(--value-black) / 50%);
-
-    &:hover {
-      background-color: rgb(var(--value-black) / 70%);
-    }
+    background-color: var(--color-gray);
   }
 
   ::-webkit-scrollbar-button {

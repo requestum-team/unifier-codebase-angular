@@ -5,28 +5,28 @@ export const navItems: INavLink[] = [
     icon: 'no',
     title: '1 First menu item',
     permissions: ['profile_view'],
-    path: '/404'
+    path: '/first'
   },
   {
     icon: 'no',
     title: '2 Second menu item',
     permissions: ['profile_view'],
-    path: '/404',
+    path: '/second',
     children: [
       {
         title: '2.1 First child of second menu item',
         permissions: ['profile_view'],
-        path: '/404'
+        path: '/second/first'
       },
       {
         title: '2.2 Second child of second menu item',
         permissions: ['profile_view'],
-        path: '/404'
+        path: '/second/second'
       },
       {
         title: '2.3 Third child of second menu item',
         permissions: ['profile_view'],
-        path: '/404'
+        path: '/second/third'
       }
     ]
   }

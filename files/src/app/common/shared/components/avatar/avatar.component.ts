@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 interface IColor {
   bg: string;
@@ -8,7 +8,8 @@ interface IColor {
 @Component({
   selector: 'avatar',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss']
+  styleUrls: ['./avatar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent {
   @Input() size: string = '40px';
