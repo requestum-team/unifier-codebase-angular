@@ -1,4 +1,4 @@
-import { Observable, OperatorFunction, throwError } from 'rxjs';
+import { Observable, OperatorFunction } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 
 export function runInAnyCase<T>(func: () => void): OperatorFunction<T, T> {
@@ -9,7 +9,7 @@ export function runInAnyCase<T>(func: () => void): OperatorFunction<T, T> {
       }),
       catchError((err: Error): Observable<never> => {
         func();
-        return throwError(err);
+        throw err;
       }),
       finalize((): void => {
         func();

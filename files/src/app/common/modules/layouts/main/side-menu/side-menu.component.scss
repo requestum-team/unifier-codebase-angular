@@ -103,27 +103,8 @@
     padding-right: var(--item-side-padding);
     transition: padding 0.3s;
 
-    &::after {
-      --width: 3px;
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: var(--width);
-      border-top-right-radius: var(--width);
-      border-bottom-right-radius: var(--width);
-      background-color: var(--color-primary);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
     &_active {
       color: var(--color-primary);
-
-      &::after {
-        opacity: 1;
-      }
     }
 
     &_inner {
@@ -205,8 +186,6 @@
     width: var(--avatar-size);
     height: var(--avatar-size);
     margin-bottom: 1.6rem;
-    border-radius: 50%;
-    overflow: hidden;
     transition: width 0.3s, height 0.3s;
   }
 

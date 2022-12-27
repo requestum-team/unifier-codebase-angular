@@ -1,9 +1,8 @@
 <label>
   <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel" (click)="onLabelClicked()">
-    <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
+    <mat-label *ngIf="withLabel && placeholder">{{ placeholder }}</mat-label>
     <input
       matInput
-      (dateChange)="handleDateChange($event)"
       [matDatepicker]="datePicker"
       [formControl]="formControl"
       [placeholder]="placeholder"

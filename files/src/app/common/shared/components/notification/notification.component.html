@@ -20,9 +20,6 @@
       {{ message }}
     </p>
   </div>
-  <button *ngIf="options.closeButton" class="notification__close" mat-icon-button (click)="remove()">
-    <mat-icon>close</mat-icon>
-  </button>
 </div>
 <div *ngIf="options.progressBar">
   <div class="toast-progress" [style.width]="width + '%'"></div>

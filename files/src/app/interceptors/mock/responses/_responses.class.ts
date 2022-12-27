@@ -1,5 +1,3 @@
-import { ClassConstructor } from 'class-transformer';
-import { convertToModel } from '@misc/helpers/model-conversion/convert-to-model.function';
 import { HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { IListEntry } from '@models/classes/_list.model';
@@ -8,27 +6,21 @@ import { Params } from '@angular/router';
 import { QueryParamsService } from '@services/query-params/query-params.service';
 
 export abstract class AbstractResponses<T extends { id: string }> {
-  readonly ENTITIES: (T | Partial<T>)[] = [];
-  protected abstract readonly _MODEL: ClassConstructor<T>;
+  readonly ENTITIES: T[] = [];
 
-  get list(): (
-    params: string[],
-    body: HttpParams,
-    headers: HttpHeaders,
-    entities?: Partial<T>[]
-  ) => Observable<HttpResponse<IListEntry<Partial<T>>>> {
+  get list(): (params: string[], body: HttpParams, headers: HttpHeaders, entities?: T[]) => Observable<HttpResponse<IListEntry<T>>> {
     return this._list.bind(this);
   }
 
-  get oneById(): (params: string[], body: Params, headers: HttpHeaders) => Observable<HttpResponse<Partial<T>>> {
+  get oneById(): (params: string[], body: Params, headers: HttpHeaders) => Observable<HttpResponse<T>> {
     return this._oneById.bind(this);
   }
 
-  get create(): (params: string[], body: any, headers: HttpHeaders) => Observable<HttpResponse<Partial<T>>> {
+  get create(): (params: string[], body: any, headers: HttpHeaders) => Observable<HttpResponse<T>> {
     return this._create.bind(this);
   }
 
-  get update(): (params: string[], body: Partial<T>, headers: HttpHeaders) => Observable<HttpResponse<Partial<T>>> {
+  get update(): (params: string[], body: T, headers: HttpHeaders) => Observable<HttpResponse<T>> {
     return this._update.bind(this);
   }
 
@@ -36,19 +28,14 @@ export abstract class AbstractResponses<T extends { id: string }> {
     return this._delete.bind(this);
   }
 
-  init(initialCount: number = 20, withConversion: boolean = true): void {
+  init(initialCount: number = 20): void {
     for (let i: number = 0; i < initialCount; i++) {
-      this.ENTITIES.push(withConversion ? convertToModel(this._entitiesFn.call(this, i), this._MODEL) : this._entitiesFn.call(this, i));
+      this.ENTITIES.push(this._entitiesFn.call(this, i));
     }
   }
 
-  protected _list(
-    params: string[],
-    body: HttpParams,
-    headers: HttpHeaders,
-    entities?: Partial<T>[]
-  ): Observable<HttpResponse<IListEntry<Partial<T>>>> {
-    let resEntities: Partial<T>[] = entities ?? this.ENTITIES;
+  protected _list(params: string[], body: HttpParams, headers: HttpHeaders, entities?: T[]): Observable<HttpResponse<IListEntry<T>>> {
+    let resEntities: T[] = entities ?? this.ENTITIES;
     const total = resEntities?.length;
 
     if (body.has(QueryParamsService.BASE_KEYS.PAGE)) {
@@ -65,8 +52,8 @@ export abstract class AbstractResponses<T extends { id: string }> {
     );
   }
 
-  protected _oneById([id]: string[], body: Params, headers: HttpHeaders): Observable<HttpResponse<Partial<T>>> {
-    const entity: Partial<T> | undefined = this.ENTITIES.find((entity: Partial<T>): boolean => entity.id === id);
+  protected _oneById([id]: string[], body: Params, headers: HttpHeaders): Observable<HttpResponse<T>> {
+    const entity: T | undefined = this.ENTITIES.find((entity: T): boolean => entity.id === id);
 
     if (entity) {
       return of(
@@ -80,7 +67,7 @@ export abstract class AbstractResponses<T extends { id: string }> {
     }
   }
 
-  protected _create(routeParams: string[], body: Partial<T>): Observable<HttpResponse<Partial<T>>> {
+  protected _create(routeParams: string[], body: T): Observable<HttpResponse<T>> {
     body.id = getRandomIdentifier();
     this.ENTITIES.push(body);
 
@@ -92,8 +79,8 @@ export abstract class AbstractResponses<T extends { id: string }> {
     );
   }
 
-  protected _update([id]: string[], body: Partial<T>): Observable<HttpResponse<Partial<T>>> {
-    const entityIndex: number = this.ENTITIES.findIndex((entity: Partial<T>): boolean => entity?.id === id);
+  protected _update([id]: string[], body: T): Observable<HttpResponse<T>> {
+    const entityIndex: number = this.ENTITIES.findIndex((entity: T): boolean => entity?.id === id);
 
     this.ENTITIES.splice(entityIndex, 1, { ...this.ENTITIES[entityIndex], ...body });
 
@@ -106,7 +93,7 @@ export abstract class AbstractResponses<T extends { id: string }> {
   }
 
   protected _delete([id]: string[]): Observable<HttpResponse<void>> {
-    const entityIndex: number = this.ENTITIES.findIndex((user: Partial<T>): boolean => user?.id === id);
+    const entityIndex: number = this.ENTITIES.findIndex((user: T): boolean => user?.id === id);
     if (entityIndex > -1) {
       this.ENTITIES.splice(entityIndex, 1);
     }
@@ -119,5 +106,5 @@ export abstract class AbstractResponses<T extends { id: string }> {
     );
   }
 
-  protected abstract _entitiesFn(index: number): Partial<T>;
+  protected abstract _entitiesFn(index: number): T;
 }

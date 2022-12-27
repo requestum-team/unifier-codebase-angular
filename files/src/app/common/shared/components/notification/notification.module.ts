@@ -18,6 +18,6 @@ const toastrConfig: Partial<GlobalConfig> = {
 
 @NgModule({
   declarations: [NotificationComponent],
-  imports: [CommonModule, ToastrModule.forRoot(toastrConfig), RouterModule, MaterialModule, DirectivesModule, TranslateModule]
+  imports: [CommonModule, ToastrModule.forRoot(toastrConfig)]
 })
 export class NotificationModule {}

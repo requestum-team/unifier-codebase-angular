@@ -1,6 +1,6 @@
-<label class="base-select">
-  <mat-form-field class="base-select__field" [appearance]="appearance" [floatLabel]="floatLabel">
-    <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
+<label>
+  <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
+    <mat-label *ngIf="withLabel && placeholder">{{ placeholder }}</mat-label>
     <mat-select [id]="id" [placeholder]="placeholder" [formControl]="formControl" [required]="required" [multiple]="multiple">
       <mat-select-trigger *ngIf="triggerTemplate">
         <ng-container *ngTemplateOutlet="triggerTemplate; context: { $implicit: control?.value }"></ng-container>

@@ -128,11 +128,11 @@ export class QueryParamsService {
     return this;
   }
 
-  parseSorting(): Sort | undefined {
+  parseSorting(): Sort | null {
     const key: string | undefined = this._getCurrentSortKey(this.params);
 
     if (!key) {
-      return;
+      return null;
     }
 
     const active: string = key.replace(/order\[(.*)]/gi, '$1');

@@ -1,7 +1,5 @@
-import { Component, EventEmitter, Output, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, inject } from '@angular/core';
 import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { TranslateService } from '@ngx-translate/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Params } from '@angular/router';
@@ -12,19 +10,16 @@ import { Params } from '@angular/router';
   styleUrls: ['./base-range-datepicker.component.scss']
 })
 export class BaseRangeDatepickerComponent extends AbstractFormFieldComponent implements OnInit {
+  protected _fb: FormBuilder = inject(FormBuilder);
   @Output() dateChange: EventEmitter<Date> = new EventEmitter<Date>();
   range: FormGroup;
 
-  constructor(protected override _cdr: ChangeDetectorRef, protected override _translate: TranslateService, protected _fb: FormBuilder) {
-    super(_cdr, _translate);
-
+  ngOnInit(): void {
     this.range = this._fb.group({
       start: this._fb.control(''),
       end: this._fb.control('')
     });
-  }
 
-  ngOnInit(): void {
     this.range.valueChanges
       .pipe(
         takeUntil(this._DESTROYED$),
@@ -35,9 +30,5 @@ export class BaseRangeDatepickerComponent extends AbstractFormFieldComponent imp
           this.control.setValue(`${start.toISOString()} <=> ${end.toISOString()}`);
         }
       });
-  }
-
-  handleDateChange(event: MatDatepickerInputEvent<unknown>): void {
-    this.dateChange.emit(event.value as Date);
   }
 }

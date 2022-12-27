@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { Subject, zip } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,9 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
   template: ''
 })
 export abstract class AbstractFormFieldComponent implements OnChanges, OnDestroy {
+  protected _translate: TranslateService = inject(TranslateService);
+  protected _cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
   @Input() icon: string;
   @Input() customRequiredKey: string;
   @Input() placeholder: string;
+  @Input() withLabel: boolean = true;
   @Input() id: string;
   @Input() value: any;
   @Input() required: boolean = false;
@@ -77,8 +80,6 @@ export abstract class AbstractFormFieldComponent implements OnChanges, OnDestroy
         return '';
     }
   }
-
-  constructor(protected _cdr: ChangeDetectorRef, protected _translate: TranslateService) {}
 
   ngOnDestroy(): void {
     this._DESTROYED$.next();

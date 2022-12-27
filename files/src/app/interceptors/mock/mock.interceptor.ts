@@ -1,8 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
+import { mergeMap } from 'rxjs/operators';
 import { Observable, timer } from 'rxjs';
 import { APP_CONFIG, IAppConfig } from '@misc/constants/app-config.constant';
-import { mergeMap } from 'rxjs/operators';
 import { tokensResponses } from '@interceptors/mock/responses/token.responses';
 import { usersResponses } from '@interceptors/mock/responses/users.responses';
 
@@ -24,9 +24,10 @@ interface IMockEndpoints {
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
+  private _config: IAppConfig = inject<IAppConfig>(APP_CONFIG);
   endpoints: IMockEndpoints;
 
-  constructor(@Inject(APP_CONFIG) private _config: IAppConfig) {
+  constructor() {
     this.endpoints = {
       GET: {
         [`${this._config.apiUrl}/api/users`]: { handler: usersResponses.list },

@@ -71,6 +71,7 @@
     "THE_REASON_IS_MISSING": "The reason is missing",
     "ACCESS_DENIED": "You haven't got permissions for access to this area.",
     "USER_NOT_ALLOWED_BY_CLIENT": "This user is not allowed by the client",
+    "0_UNKNOWN_ERROR": "Unknown network error",
     "ERROR": {
       "CONSTRAINT": {
         "USER_NOT_FOUND": "User is not found"

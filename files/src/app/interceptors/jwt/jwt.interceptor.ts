@@ -15,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(this._auth.addTokenToRequest(req)).pipe(
-      catchError((error: HttpErrorResponse): Observable<HttpEvent<any>> => {
+      catchError((error: Error): Observable<HttpEvent<any>> => {
         if (error instanceof HttpErrorResponse && this.shouldHandleUnauthorized(error, req)) {
           return this._handleUnauthorized(req, next);
         } else {

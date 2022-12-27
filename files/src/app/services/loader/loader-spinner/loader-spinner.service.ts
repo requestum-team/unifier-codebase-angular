@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractLoaderService } from '@misc/abstracts/resolvers/abstract-loader.service';
+import { AbstractLoaderService } from '@misc/abstracts/services/abstract-loader.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { ComponentType, OverlayConfig } from '@angular/cdk/overlay';
 

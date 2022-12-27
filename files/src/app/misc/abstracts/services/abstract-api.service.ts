@@ -1,4 +1,4 @@
-import { inject, Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Params } from '@angular/router';
 import { HttpService, IServicesConfig } from '@services/http/http.service';
@@ -23,7 +23,8 @@ export interface ITransitData {
 @Injectable({
   providedIn: 'root'
 })
-export abstract class AbstractApiBaseService<T extends AbstractModel> {
+export abstract class AbstractApiService<T extends AbstractModel> {
+  protected _config: IAppConfig = inject<IAppConfig>(APP_CONFIG);
   protected _http: HttpService = inject(HttpService);
   protected _URLParams: string[] = [];
   protected abstract readonly _MODEL: ClassConstructor<T>;
@@ -37,8 +38,6 @@ export abstract class AbstractApiBaseService<T extends AbstractModel> {
     return this.baseUrl + this._composeUrlPath();
   }
 
-  constructor(@Inject(APP_CONFIG) protected _config: IAppConfig) {}
-
   getItems(params?: Params, servicesConfig?: IServicesConfig): Observable<List<T>> {
     const httpParams: HttpParams = new HttpParams({ fromObject: params, encoder: new CustomHTTPParamsEncoder() });
     return this._http.get(this.url, { params: httpParams }, servicesConfig).pipe(toModelsList(this._MODEL));
@@ -48,22 +47,22 @@ export abstract class AbstractApiBaseService<T extends AbstractModel> {
     return this._http.get(id ? `${this.url}/${id}` : this.url, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }
 
-  createItem(data: Partial<T>, servicesConfig?: IServicesConfig): Observable<T> {
+  createItem(data: Partial<T>, params?: Params, servicesConfig?: IServicesConfig): Observable<T> {
     const body: Partial<T> = { ...data };
     delete body.id;
-    return this._http.post(this.url, body, {}, servicesConfig);
+    return this._http.post(this.url, body, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }
 
-  updateItem(data: Partial<T>, servicesConfig?: IServicesConfig): Observable<T> {
+  updateItem(data: Partial<T>, params?: Params, servicesConfig?: IServicesConfig): Observable<T> {
     const body: Partial<T> = { ...data };
     delete body.id;
-    return this._http.patch(`${this.url}/${data.id}`, body, {}, servicesConfig);
+    return this._http.patch(`${this.url}/${data.id}`, body, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }
 
-  cascadeUpdateItem(data: Partial<T>, servicesConfig?: IServicesConfig): Observable<T> {
+  cascadeUpdateItem(data: Partial<T>, params?: Params, servicesConfig?: IServicesConfig): Observable<T> {
     const body: Partial<T> = { ...data };
     delete body.id;
-    return this._http.put(`${this.url}/${data.id}`, body, {}, servicesConfig);
+    return this._http.put(`${this.url}/${data.id}`, body, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }
 
   deleteItem(id: string, servicesConfig?: IServicesConfig): Observable<void> {

@@ -1,10 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractFormFieldComponent } from '@misc/abstracts/components/abstract-form-field.component';
 import { FormControl } from '@angular/forms';
 import { FileType } from '@models/enums/file-type.enum';
 import { ApiFile } from '@models/classes/file.model';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 import { ThemePalette } from '@angular/material/core';
 import { FileApiService } from '@services/api/file-api/file-api.service';
 import { Observable, zip } from 'rxjs';
@@ -15,6 +14,8 @@ import { Observable, zip } from 'rxjs';
   styleUrls: ['./file-uploader.component.scss']
 })
 export class FileUploaderComponent extends AbstractFormFieldComponent implements OnInit {
+  private _fileApi: FileApiService = inject(FileApiService);
+  private _sanitizer: DomSanitizer = inject(DomSanitizer);
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement>;
   @Output() fileDragover: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
   @Output() fileDragleave: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
@@ -54,15 +55,6 @@ export class FileUploaderComponent extends AbstractFormFieldComponent implements
 
   get placeholderWord(): string {
     return this._translate.instant(`FILE_UPLOADER.FILE${this.multiple ? 'S' : ''}`);
-  }
-
-  constructor(
-    private _fileApi: FileApiService,
-    private _sanitizer: DomSanitizer,
-    protected override _cdr: ChangeDetectorRef,
-    protected override _translate: TranslateService
-  ) {
-    super(_cdr, _translate);
   }
 
   ngOnInit(): void {

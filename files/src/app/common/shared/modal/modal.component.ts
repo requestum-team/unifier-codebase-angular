@@ -46,7 +46,7 @@ export class ModalComponent<T> implements AfterViewInit {
   componentRef: ComponentRef<IModalFormComponent<T>> | null;
 
   get icon(): string {
-    return this.data.icon ?? 'warning_amber';
+    return this.data.icon;
   }
 
   get context(): IModalComponentContext<T> {
@@ -81,7 +81,7 @@ export class ModalComponent<T> implements AfterViewInit {
     this.componentRef = this.data?.component ? this._viewContainerRef.createComponent(this.data.component) : null;
 
     if (this.componentRef) {
-      this.componentRef.instance.context = this.context;
+      this.componentRef.setInput('context', this.context);
       this._renderer.appendChild(this.modalBody.nativeElement, this.componentRef.location.nativeElement);
       this._cdr.detectChanges();
     }

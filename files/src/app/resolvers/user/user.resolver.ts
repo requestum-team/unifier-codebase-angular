@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { UserApiService } from '@services/api/user-api/user-api.service';
 import { User } from '@models/classes/user/user.model';
-import { AbstractDetailsInfoResolver } from '@misc/abstracts/services/abstract-details-info.resolver';
+import { AbstractDetailsInfoResolver } from '@misc/abstracts/resolvers/abstract-details-info.resolver';
 
 @Injectable({
   providedIn: 'root'

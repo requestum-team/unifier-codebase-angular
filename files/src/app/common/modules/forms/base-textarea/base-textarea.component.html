@@ -1,7 +1,7 @@
 <label>
   <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
-    <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
-    <mat-icon *ngIf="icon" matPrefix>{{ icon }}</mat-icon>
+    <mat-label *ngIf="withLabel && placeholder">{{ placeholder }}</mat-label>
+    <mat-icon matPrefix *ngIf="icon" [svgIcon]="icon" color="primary">{{ icon }}</mat-icon>
     <textarea
       matInput
       cdkTextareaAutosize

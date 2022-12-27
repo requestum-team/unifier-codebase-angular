@@ -6,7 +6,6 @@ import { PaginatedListModule } from './paginated-list/paginated-list.module';
 import { DataTableModule } from './data-table/data-table.module';
 import { PaginatorModule } from './paginator/paginator.module';
 import { CroppedTextModule } from './cropped-text/cropped-text.module';
-import { DropdownModule } from '@shared/components/dropdown/dropdown.module';
 import { NotificationModule } from '@shared/components/notification/notification.module';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { NotificationModule } from '@shared/components/notification/notification
     DataTableModule,
     PaginatorModule,
     CroppedTextModule,
-    DropdownModule,
     NotificationModule
   ]
 })

@@ -1,7 +1,7 @@
 <label>
   <mat-form-field [appearance]="appearance" [floatLabel]="floatLabel">
-    <mat-label *ngIf="placeholder">{{ placeholder }}</mat-label>
-    <mat-icon matPrefix *ngIf="icon" [svgIcon]="icon"></mat-icon>
+    <mat-label *ngIf="withLabel && placeholder">{{ placeholder }}</mat-label>
+    <mat-icon matPrefix *ngIf="icon" [svgIcon]="icon" color="primary">{{ icon }}</mat-icon>
     <input
       matInput
       [formControl]="formControl"
@@ -24,7 +24,7 @@
     >
       <mat-icon svgIcon="cross"></mat-icon>
     </button>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected)="optionSelected.emit($event.option.value)">
       <mat-option *ngFor="let item of options; index as i" [value]="item">
         <ng-container *ngIf="optionTemplate; else base">
           <ng-container *ngTemplateOutlet="optionTemplate; context: { $implicit: item }"></ng-container>
