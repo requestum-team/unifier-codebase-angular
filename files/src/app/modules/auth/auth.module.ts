@@ -11,37 +11,53 @@ import { ForgotPasswordComponent } from '@modules/auth/forgot-password/forgot-pa
 import { ConfirmationEmailComponent } from '@modules/auth/confirmation-email/confirmation-email.component';
 import { ConfirmationEmailGuard } from '@guards/confirmation-email/confirmation-email.guard';
 import { ConfirmationTokenResolver } from '@resolvers/confirmation-token/confirmation-token.resolver';
+import { AuthLayoutComponent } from '@layouts/auth/auth-layout.component';
+import { AuthLayoutModule } from '@layouts/auth/auth-layout.module';
 
 const routes: Routes = [
   {
-    path: 'log-in',
-    component: LogInComponent
-  },
-  {
-    path: 'sign-up',
-    component: SignUpComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'confirmation-email',
-    component: ConfirmationEmailComponent,
-    canActivate: [ConfirmationEmailGuard],
-    resolve: {
-      emailConfirmationErrorMessage: ConfirmationTokenResolver
-    }
-  },
-  {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'log-in'
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'log-in',
+        component: LogInComponent
+      },
+      {
+        path: 'sign-up',
+        component: SignUpComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
+      },
+      {
+        path: 'confirmation-email',
+        component: ConfirmationEmailComponent,
+        canActivate: [ConfirmationEmailGuard],
+        resolve: {
+          emailConfirmationErrorMessage: ConfirmationTokenResolver
+        }
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'log-in'
+      }
+    ]
   }
 ];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes), LogInModule, SignUpModule, ForgotPasswordModule, ConfirmationEmailModule]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    AuthLayoutModule,
+    LogInModule,
+    SignUpModule,
+    ForgotPasswordModule,
+    ConfirmationEmailModule
+  ]
 })
 export class AuthModule {}

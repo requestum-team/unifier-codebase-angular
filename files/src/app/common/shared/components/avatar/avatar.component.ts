@@ -39,7 +39,7 @@ export class AvatarComponent {
 
   get color(): IColor | undefined {
     return this._colors[
-      this.initials.split('').reduce((value: number, char: string): number => {
+      this.name.split('').reduce((value: number, char: string): number => {
         value += char.codePointAt(0) ?? 0;
         return value;
       }, 0) % this._colors.length

@@ -1,9 +1,6 @@
 import { NgModule, Type } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MeResolver } from '@resolvers/me/me.resolver';
-import { AuthLayoutComponent } from '@layouts/auth/auth-layout.component';
-import { MainLayoutComponent } from '@layouts/main/main-layout.component';
-import { CommonModule } from '@angular/common';
 import { UserRole } from '@models/enums/user-role.enum';
 import { UnauthGuard } from '@guards/unauth/unauth.guard';
 import { IRoleGuardParams, RoleGuard } from '@guards/role/role.guard';
@@ -15,15 +12,13 @@ const routes: Routes = [
   {
     path: 'auth',
     canActivate: [UnauthGuard],
-    component: AuthLayoutComponent,
     loadChildren: (): Promise<Type<AuthModule>> =>
       import('@modules/auth/auth.module').then((m: { AuthModule: Type<AuthModule> }): Type<AuthModule> => m.AuthModule)
   },
   {
     path: '',
     resolve: { me: MeResolver },
-    canLoad: [AuthGuard, RoleGuard],
-    component: MainLayoutComponent,
+    canMatch: [AuthGuard, RoleGuard],
     runGuardsAndResolvers: 'always',
     data: {
       roleGuardParams: {
@@ -42,7 +37,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forRoot(routes, {
       paramsInheritanceStrategy: 'always',
       enableTracing: false,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanMatch, Route, Router } from '@angular/router';
 import { UserRole } from '@models/enums/user-role.enum';
 import { AuthService } from '@services/auth/auth.service';
 import { hasPermissions } from '@misc/helpers/has-permissions.function';
@@ -12,7 +12,7 @@ export interface IHasPermissionsGuardData {
 @Injectable({
   providedIn: 'root'
 })
-export class HasPermissionsGuard implements CanActivate, CanLoad {
+export class HasPermissionsGuard implements CanActivate, CanMatch {
   get currentRole(): UserRole {
     return this._auth.myRole;
   }
@@ -23,7 +23,7 @@ export class HasPermissionsGuard implements CanActivate, CanLoad {
     return this.hasPermissions(route?.data?.permissions);
   }
 
-  canLoad(route: Route): Promise<boolean> | boolean {
+  canMatch(route: Route): Promise<boolean> | boolean {
     return this.hasPermissions(route?.data?.permissions);
   }
 
