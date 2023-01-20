@@ -1,4 +1,4 @@
-import { inject, Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpRequest } from '@angular/common/http';
 import { map, switchMap, tap } from 'rxjs/operators';
@@ -20,31 +20,26 @@ import { GrantType } from '@models/enums/grant-type.enum';
 })
 export class AuthService {
   me$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private _config: IAppConfig = inject<IAppConfig>(APP_CONFIG);
   private _http: HttpService = inject(HttpService);
   private _storage: StorageService = inject(StorageService);
   private _userApi: UserApiService = inject(UserApiService);
-  private readonly _TOKENS$: BehaviorSubject<Token | null> = new BehaviorSubject<Token | null>(this._storage.get<Token>(StorageKey.tokens));
-  private readonly _ROLE$: BehaviorSubject<UserRole | null> = new BehaviorSubject<UserRole | null>(
-    this._storage.get<UserRole>(StorageKey.role)
-  );
 
   get isAuthenticated(): boolean {
     return Boolean(this.myRole && this.token?.access && this.token?.refresh);
   }
 
   get token(): Token | null {
-    return this._TOKENS$.value;
+    return this._storage.get<Token>(StorageKey.tokens);
   }
 
   get myRole(): UserRole | null {
-    return this._ROLE$.value;
+    return this._storage.get<UserRole>(StorageKey.role);
   }
 
   get me(): User | null {
     return this.me$.value;
   }
-
-  constructor(@Inject(APP_CONFIG) private _config: IAppConfig) {}
 
   getTemporaryToken(services?: IServicesConfig): Observable<Token | undefined> {
     const { apiUrl, client_id: clientId, client_secret: clientSecret }: IAppConfig = this._config;
@@ -97,8 +92,6 @@ export class AuthService {
 
   clearTokens(): void {
     this._storage.clear();
-    this._TOKENS$.next(null);
-    this._ROLE$.next(null);
     this.me$.next(null);
   }
 
@@ -113,7 +106,6 @@ export class AuthService {
   }
 
   setRole(role: UserRole): UserRole {
-    this._ROLE$.next(role);
     this._storage.set(StorageKey.role, role);
     return role;
   }
@@ -128,13 +120,18 @@ export class AuthService {
     );
   }
 
+  markTokensAsRevoked(): void {
+    const token: Token = this._storage.get<Token>(StorageKey.tokens);
+    token.isRevoked = true;
+    this._storage.set(StorageKey.tokens, token);
+  }
+
   private _onTokenResponse(res: IApiTokens): Token | undefined {
     let tokens: Token | undefined;
 
     if (res.access_token) {
       tokens = plainToClass(Token, res);
       this._storage.set(StorageKey.tokens, tokens);
-      this._TOKENS$.next(tokens);
     }
 
     return tokens;
