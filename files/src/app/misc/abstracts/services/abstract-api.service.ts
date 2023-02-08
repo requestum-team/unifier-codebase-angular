@@ -47,8 +47,8 @@ export abstract class AbstractApiService<T extends AbstractModel> {
     return this._http.get(id ? `${this.url}/${id}` : this.url, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }
 
-  createItem(data: Partial<T>, params?: Params, servicesConfig?: IServicesConfig): Observable<T> {
-    const body: Partial<T> = { ...data };
+  createItem(data: Params, params?: Params, servicesConfig?: IServicesConfig): Observable<T> {
+    const body: Params = { ...data };
     delete body.id;
     return this._http.post(this.url, body, { params }, servicesConfig).pipe(toModel(this._MODEL));
   }

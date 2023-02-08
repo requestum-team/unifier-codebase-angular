@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IAction } from '@shared/components/data-table/table-actions/table-actions.component';
 
 export interface IModalAction extends Omit<IAction<boolean>, 'value'> {
+  style?: 'raised' | 'stroked' | 'flat';
   type: 'submit' | 'close';
   value?: boolean;
 }

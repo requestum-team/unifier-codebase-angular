@@ -12,7 +12,7 @@ export type IModalProperties = Omit<MatDialogConfig, 'data'> & { shouldHandleFal
 export class ModalService {
   constructor(private _dialog: MatDialog) {}
 
-  open<T = any>(data: IModalData<T>, properties?: IModalProperties): Observable<T> {
+  open<T = any, R = T>(data: IModalData<T>, properties?: IModalProperties): Observable<R> {
     const shouldHandleFalse: boolean = properties?.shouldHandleFalse ?? false;
     delete properties?.shouldHandleFalse;
 
@@ -22,6 +22,6 @@ export class ModalService {
         data
       })
       .afterClosed()
-      .pipe(filter((res: T): boolean => shouldHandleFalse || Boolean(res)));
+      .pipe(filter((res: R): boolean => shouldHandleFalse || Boolean(res)));
   }
 }
