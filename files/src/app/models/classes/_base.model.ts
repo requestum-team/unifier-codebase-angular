@@ -12,14 +12,14 @@ export abstract class AbstractModel {
   createdAt: Date;
   @Expose()
   @Transform(transformToDate)
-  date: Date;
+  updatedAt: Date;
 
   [Symbol.toPrimitive](hint: 'number' | 'string' | 'default'): string | number | void {
     switch (hint) {
+      case 'default':
       case 'string':
         return this.iri;
       case 'number':
-      case 'default':
       default:
         return;
     }
